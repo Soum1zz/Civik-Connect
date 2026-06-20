@@ -1,5 +1,6 @@
 package com.soum.civikConnect.ngo.service;
 
+import com.soum.civikConnect.IssueCategory.entity.IssueCategory;
 import com.soum.civikConnect.IssueInterest.entity.IssueInterest;
 import com.soum.civikConnect.IssueInterest.repo.IssueInterestRepo;
 import com.soum.civikConnect.issue.entity.Issue;
@@ -15,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class NgoService {
@@ -73,7 +77,7 @@ public class NgoService {
         return toNgoRes(ngoRepo.save(ngo));
     }
 
-    //interst
+    //interest
     @Transactional
     public void issueInterest(Long ngoId, Long issueId){
         Ngo ngo= ngoRepo.findById(ngoId).orElseThrow(()->new RuntimeException("ngo not found"));
@@ -86,6 +90,28 @@ public class NgoService {
         issueInterest.setAppliedAt(LocalDateTime.now());
 
         issueInterestRepo.save(issueInterest);
+    }
+
+    //fetch all issues that are of this ngo's field
+    public List<Issue> getRelatedIssues(Long ngoId){
+        Ngo ngo= ngoRepo.findById(ngoId).orElseThrow(()->new RuntimeException("ngo not found"));
+
+        List<Issue> issues= new ArrayList<>();
+
+        Set<IssueCategory> ngoCats= ngo.getIssueCategory();
+        for(IssueCategory ngoCat:ngoCats)
+            issues.addAll(issueRepo.findRelatedIssues(ngoId, ngoCat.toString()));
+
+
+        return issues;
+    }
+
+    //fetch issues of a ngo
+    public List<Issue> findAll(Long ngoId){
+        List<Issue>issues= new ArrayList<>();
+
+        issues= issueRepo.findAllByAssignedNgoNgoId(ngoId);
+        return issues;
     }
 
 }

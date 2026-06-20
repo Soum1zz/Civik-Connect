@@ -9,5 +9,5 @@ public enum IssueStatus {
 
     RESOLVED,
 
-    REJECTED
+    REJECTED;
 }

@@ -6,6 +6,8 @@ import com.soum.civikConnect.common.enums.IssueStatus;
 import com.soum.civikConnect.issue.dto.IssueReq;
 import com.soum.civikConnect.issue.entity.Issue;
 import com.soum.civikConnect.issue.repo.IssueRepo;
+import com.soum.civikConnect.ngo.entity.Ngo;
+import com.soum.civikConnect.ngo.repo.NgoRepo;
 import com.soum.civikConnect.user.entity.User;
 import com.soum.civikConnect.user.repo.UserRepo;
 import jakarta.transaction.Transactional;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class IssueService {
@@ -25,6 +29,9 @@ public class IssueService {
 
     @Autowired
     IssueCategoryRepo issueCategoryRepo;
+
+    @Autowired
+    NgoRepo ngoRepo;
 
     //create
     @Transactional
@@ -67,22 +74,7 @@ public class IssueService {
 
     }
 
-    //verify
-    public void verifyIssue(Long id){
-        Issue  issue = issueRepo.findById(id).orElseThrow(()->new RuntimeException("Issue not found"));
-
-        issue.setStatus(IssueStatus.VERIFIED);
-    }
 
 
-
-    //reject
-    @Transactional
-    public  void deleteIssue(Long id){
-        Issue  issue = issueRepo.findById(id).orElseThrow(()->new RuntimeException("Issue not found"));
-
-        issueRepo.delete(issue);
-
-    }
     
 }

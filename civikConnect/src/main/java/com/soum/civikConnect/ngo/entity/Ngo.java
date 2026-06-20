@@ -25,8 +25,6 @@ public class Ngo {
 
     private String officialWebsite;
 
-
-
     private String description;
 
     @ManyToMany

@@ -58,6 +58,7 @@ public class UserService {
         user1.setEmail(user.email());
         user1.setPhoneNumber(user.phoneNumber());
         user1.setCreatedOn(LocalDateTime.now());
+        user1.setBlocked(false);
         try {
             user1.setRole(UserRole.valueOf(user.role().toUpperCase()));
         } catch (IllegalArgumentException e) {
