@@ -107,7 +107,7 @@ public class NgoService {
     }
 
     //fetch issues of a ngo
-    public List<Issue> findAll(Long ngoId){
+    public List<Issue> findAllIssues(Long ngoId){
         List<Issue>issues= new ArrayList<>();
 
         issues= issueRepo.findAllByAssignedNgoNgoId(ngoId);

@@ -1,12 +1,13 @@
 package com.soum.civikConnect.IssueComment.entity;
 
+import com.soum.civikConnect.CommentImage.entity.CommentImage;
 import com.soum.civikConnect.issue.entity.Issue;
+import com.soum.civikConnect.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 
 import java.time.LocalDateTime;
 

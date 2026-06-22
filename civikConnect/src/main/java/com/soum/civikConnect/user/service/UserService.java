@@ -1,5 +1,6 @@
 package com.soum.civikConnect.user.service;
 
+import com.soum.civikConnect.IssueComment.dto.CommentReq;
 import com.soum.civikConnect.common.enums.UserRole;
 import com.soum.civikConnect.user.dto.userReq;
 import com.soum.civikConnect.user.dto.userRes;
@@ -71,8 +72,8 @@ public class UserService {
         return toUserResponse(savedUser);
     }
 
-    public userRes updateUser(userReq user, Long userId) throws IOException {
-        User user1= userRepo.findById(userId).orElseThrow(()->new RuntimeException("User Not Found"));
+    public userRes updateUser(userReq user) throws IOException {
+        User user1= userRepo.findById(user.userId()).orElseThrow(()->new RuntimeException("User Not Found"));
         user1.setUsername(user.name());
         user1.setEmail(user.email());
         user1.setPhoneNumber(user.phoneNumber());
@@ -97,7 +98,6 @@ public class UserService {
         User user= userRepo.findById(userId).orElseThrow(()->new RuntimeException("User not found"));
         user.setImgUrl(imageUrl);
     }
-
 
 
 
