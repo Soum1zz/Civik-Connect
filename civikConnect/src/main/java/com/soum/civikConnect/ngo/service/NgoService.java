@@ -68,8 +68,8 @@ public class NgoService {
 
     //Ngo det upd
     @Transactional
-    public ngoRes updateNgo(ngoReq req){
-        Ngo ngo = ngoRepo.findById(req.ngoId()).orElseThrow(()->new RuntimeException("ngo not found"));
+    public ngoRes updateNgo(Long uid, ngoReq req){
+        Ngo ngo = ngoRepo.findByUserUserId(uid).orElseThrow(()->new RuntimeException("ngo not found"));
         ngo.setDescription(req.description());
         ngo.setAddress(req.address());
         ngo.setOfficialWebsite(req.officialWebsite());
@@ -79,8 +79,8 @@ public class NgoService {
 
     //interest
     @Transactional
-    public void issueInterest(Long ngoId, Long issueId){
-        Ngo ngo= ngoRepo.findById(ngoId).orElseThrow(()->new RuntimeException("ngo not found"));
+    public void issueInterest(Long uId, Long issueId){
+        Ngo ngo= ngoRepo.findByUserUserId(uId).orElseThrow(()->new RuntimeException("ngo not found"));
         Issue issue= issueRepo.findById(issueId).orElseThrow(()->new RuntimeException("issue not found"));
 
 

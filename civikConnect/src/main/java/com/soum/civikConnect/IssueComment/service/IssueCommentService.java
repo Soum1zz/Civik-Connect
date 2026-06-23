@@ -1,10 +1,12 @@
 package com.soum.civikConnect.IssueComment.service;
 
 
+import com.soum.civikConnect.CommentImage.entity.CommentImage;
 import com.soum.civikConnect.CommentImage.repository.commentImageRepo;
 import com.soum.civikConnect.IssueComment.dto.CommentReq;
 import com.soum.civikConnect.IssueComment.entity.IssueComment;
 import com.soum.civikConnect.IssueComment.repo.IssueCommentRepo;
+import com.soum.civikConnect.common.dto.ImgReq;
 import com.soum.civikConnect.issue.entity.Issue;
 import com.soum.civikConnect.issue.repo.IssueRepo;
 import com.soum.civikConnect.user.entity.User;
@@ -13,6 +15,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.sound.midi.Soundbank;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,10 +31,10 @@ public class IssueCommentService {
     private commentImageRepo commentImageRepo;
 
     @Transactional
-    public void createComment(CommentReq req) {
+    public void createComment(CommentReq req, Long userId) {
         Issue issue= issueRepo.findById(req.iId()).orElseThrow(()->new RuntimeException("Issue Not Found"));
 
-        User user= userRepo.findById(req.uId()).orElseThrow(()->new RuntimeException("User Not Found"));
+        User user= userRepo.findById(userId).orElseThrow(()->new RuntimeException("User Not Found"));
 
         IssueComment issueComment = new IssueComment();
         issueComment.setIssue(issue);
@@ -43,19 +46,22 @@ public class IssueCommentService {
 
     }
     //??
-    public void updateComment(CommentReq req) {
-        Issue issue= issueRepo.findById(req.iId()).orElseThrow(()->new RuntimeException("Issue Not Found"));
-
-        IssueComment issueComment = new IssueComment();
-        issueComment.setIssue(issue);
-        issueComment.setMessage(req.message());
-
-        issueCommentRepo.save(issueComment);
+    public void updateComment(CommentReq req, Long userId) {
+        IssueComment comment= issueCommentRepo.findByIssueId(req.iId()).orElseThrow(()->new RuntimeException("comment Not Found"));
+        if(userId != comment.getAuthor().getUserId()) {
+            System.out.println("Not same user!!");
+            return;
+        }
+        comment.setMessage(req.message());
 
     }
 
-    public void deleteComment(Long cId) {
+    public void deleteComment(Long cId, Long userId) {
         IssueComment comment= issueCommentRepo.findById(cId).orElseThrow(()->new RuntimeException("comment Not Found"));
+        if(userId != comment.getAuthor().getUserId()) {
+            System.out.println("Not same user!!");
+            return;
+        }
         issueCommentRepo.deleteById(cId);
     }
 
@@ -71,5 +77,34 @@ public class IssueCommentService {
         List<String> list= commentImageRepo.findByCommentId(cId).orElseThrow(()->new RuntimeException("User not found"));
         return list;
     }
+
+
+    @Transactional
+    public void addComImg(ImgReq req, Long userId) {
+        IssueComment comment= issueCommentRepo.findById(req.id()).orElseThrow(()->new RuntimeException("comment Not Found"));
+
+        if(userId != comment.getAuthor().getUserId()) {
+            System.out.println("Not same user!!");
+            return;
+        }
+
+        User user= userRepo.findById(userId).orElseThrow(()->new RuntimeException("User Not Found"));
+
+        CommentImage commentImage= CommentImage.builder()
+                .comment(comment)
+                .imgUrl(req.url())
+                .build();
+
+        commentImageRepo.save(commentImage);
+
+    }
+
+    @Transactional
+    public void delComImg(ImgReq req, Long userId) {
+        issueCommentRepo.deleteById(req.id());
+
+    }
+
+
 
 }

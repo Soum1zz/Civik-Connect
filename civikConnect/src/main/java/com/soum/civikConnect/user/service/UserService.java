@@ -72,8 +72,8 @@ public class UserService {
         return toUserResponse(savedUser);
     }
 
-    public userRes updateUser(userReq user) throws IOException {
-        User user1= userRepo.findById(user.userId()).orElseThrow(()->new RuntimeException("User Not Found"));
+    public userRes updateUser(userReq user, Long uid) throws IOException {
+        User user1= userRepo.findById(uid).orElseThrow(()->new RuntimeException("User Not Found"));
         user1.setUsername(user.name());
         user1.setEmail(user.email());
         user1.setPhoneNumber(user.phoneNumber());

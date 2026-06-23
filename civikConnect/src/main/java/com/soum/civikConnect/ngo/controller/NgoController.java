@@ -1,5 +1,6 @@
 package com.soum.civikConnect.ngo.controller;
 
+import com.soum.civikConnect.config.security.UserPrincipal;
 import com.soum.civikConnect.moderator.services.moderatorService;
 import com.soum.civikConnect.ngo.dto.ngoReq;
 import com.soum.civikConnect.ngo.service.NgoService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,18 +29,18 @@ public class NgoController {
     }
 
     @PutMapping("/ngo/update")
-    public ResponseEntity<?> update(@RequestBody ngoReq req) {
+    public ResponseEntity<?> update(@AuthenticationPrincipal UserPrincipal principal ,@RequestBody ngoReq req) {
         try{
-            return new ResponseEntity<>(ngoService.updateNgo(req),HttpStatus.OK);
+            return new ResponseEntity<>(ngoService.updateNgo(principal.getUser().getUserId(),req),HttpStatus.OK);
         }catch(Exception e){
         return ResponseEntity.badRequest().build();
         }
     }
 
-    @PutMapping("/ngo/{ngoId}/show-interest/{iId}")
-    public ResponseEntity<?> showInterest(@RequestParam("ngoId") Long ngoId, @RequestParam("iId") Long iId) {
+    @PutMapping("/ngo/{ngoId}/show-interest")
+    public ResponseEntity<?> showInterest(@AuthenticationPrincipal UserPrincipal principal, @PathVariable("iId") Long iId) {
         try{
-            ngoService.issueInterest(ngoId, iId);
+            ngoService.issueInterest(principal.getUser().getUserId(), iId);
         }catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
@@ -46,7 +48,7 @@ public class NgoController {
     }
 
     @GetMapping("/ngo/{ngoId}/all-categories")
-    public ResponseEntity<?> catFields(@RequestParam("ngoId") Long ngoId) {
+    public ResponseEntity<?> catFields(@PathVariable("ngoId") Long ngoId) {
         try{
             return new ResponseEntity<>(ngoService.getRelatedIssues(ngoId), HttpStatus.OK);
 
@@ -56,7 +58,7 @@ public class NgoController {
     }
 
     @GetMapping("/ngo/{ngoId}/all-issues")
-    public ResponseEntity<?> findNgoIssues(@RequestParam("ngoId") Long ngoId) {
+    public ResponseEntity<?> findNgoIssues(@PathVariable("ngoId") Long ngoId) {
         try{
             return new ResponseEntity<>(ngoService.findAllIssues(ngoId), HttpStatus.OK);
 

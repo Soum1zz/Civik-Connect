@@ -1,19 +1,14 @@
 package com.soum.civikConnect.user.controller;
 
-import com.soum.civikConnect.IssueComment.dto.CommentReq;
+import com.soum.civikConnect.config.security.UserPrincipal;
 import com.soum.civikConnect.user.dto.userReq;
-import com.soum.civikConnect.user.dto.userRes;
-import com.soum.civikConnect.user.entity.User;
 import com.soum.civikConnect.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 
 @RestController
@@ -43,15 +38,23 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateUser(userReq req){
+    public ResponseEntity<?> updateUser(userReq req, @AuthenticationPrincipal UserPrincipal principal){
         try{
-            return new ResponseEntity<>(userService.updateUser(req),HttpStatus.OK);
+            return new ResponseEntity<>(userService.updateUser(req, principal.getUser().getUserId()),HttpStatus.OK);
         }catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
     }
 
-
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteUser(@AuthenticationPrincipal UserPrincipal principal){
+        try{
+            userService.deleteUser(principal.getUser().getUserId());
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch(Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
 
 

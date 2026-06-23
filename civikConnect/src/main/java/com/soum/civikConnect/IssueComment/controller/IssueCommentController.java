@@ -2,19 +2,24 @@ package com.soum.civikConnect.IssueComment.controller;
 
 import com.soum.civikConnect.IssueComment.dto.CommentReq;
 import com.soum.civikConnect.IssueComment.service.IssueCommentService;
+import com.soum.civikConnect.common.dto.ImgReq;
+import com.soum.civikConnect.config.security.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+
+@RestController
+@RequestMapping("/comment")
 
 public class IssueCommentController {
     @Autowired
     private IssueCommentService issueCommentService;
 
-    @GetMapping("/{iId}/comment/all")
+    @GetMapping("/{iId}/all")
     public ResponseEntity<?> getAllComment(@RequestParam("iId") Long iId){
         try{
             return new ResponseEntity<>(issueCommentService.allComment(iId), HttpStatus.OK);
@@ -24,35 +29,64 @@ public class IssueCommentController {
     }
 
 
-    @PutMapping("/comment/create")
-    public ResponseEntity<?> createComment(CommentReq req){
+    @PutMapping("/create")
+    public ResponseEntity<?> createComment(@RequestBody CommentReq req, @AuthenticationPrincipal UserPrincipal user){
         try{
-            issueCommentService.createComment(req);
+            issueCommentService.createComment(req, user.getUser().getUserId());
         }catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
         return  ResponseEntity.ok().build();
     }
 
-    @PutMapping("/comment/update")
-    public ResponseEntity<?> updateComment(CommentReq req){
+    @PutMapping("/update")
+    public ResponseEntity<?> updateComment(CommentReq req,  @AuthenticationPrincipal UserPrincipal user){
         try{
-            issueCommentService.updateComment(req);
+            issueCommentService.updateComment(req, user.getUser().getUserId());
         }catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
         return  ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/comment/{cId}/delete")
-    public ResponseEntity<?> createComment(@RequestParam("cId") Long cId){
+    @DeleteMapping("/{cId}/delete")
+    public ResponseEntity<?> createComment(@PathVariable("cId") Long cId, @AuthenticationPrincipal UserPrincipal user){
         try{
-            issueCommentService.deleteComment(cId);
+            issueCommentService.deleteComment(cId, user.getUser().getUserId());
         }catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
         return  ResponseEntity.ok().build();
     }
     //upload image
+    @PutMapping("/image/upload")
+    public ResponseEntity<?> uploadCommentImg(@RequestBody ImgReq req , @AuthenticationPrincipal UserPrincipal user){
+        try{
+            issueCommentService.addComImg(req, user.getUser().getUserId());
+        }catch(Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+        return  ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/image/delete")
+    public ResponseEntity<?> deleteCommentImg(@RequestBody ImgReq req , @AuthenticationPrincipal UserPrincipal user){
+        try{
+            issueCommentService.delComImg(req, user.getUser().getUserId());
+        }catch(Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+        return  ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{cId}/image/get-all")
+    public ResponseEntity<?> getAllCommentImg(@PathVariable Long cId ){
+        try{
+            return new ResponseEntity<>(issueCommentService.getImage(cId), HttpStatus.OK);
+        }catch(Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 
 }
