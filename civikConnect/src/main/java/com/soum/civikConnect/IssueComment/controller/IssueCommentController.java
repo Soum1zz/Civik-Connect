@@ -50,7 +50,7 @@ public class IssueCommentController {
     }
 
     @DeleteMapping("/{cId}/delete")
-    public ResponseEntity<?> createComment(@PathVariable("cId") Long cId, @AuthenticationPrincipal UserPrincipal user){
+    public ResponseEntity<?> deleteComment(@PathVariable("cId") Long cId, @AuthenticationPrincipal UserPrincipal user){
         try{
             issueCommentService.deleteComment(cId, user.getUser().getUserId());
         }catch(Exception e){

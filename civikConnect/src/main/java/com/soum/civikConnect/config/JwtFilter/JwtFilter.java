@@ -1,4 +1,4 @@
-package com.soum.civikConnect.config;
+package com.soum.civikConnect.config.JwtFilter;
 
 import com.soum.civikConnect.config.service.JwtService;
 import jakarta.servlet.FilterChain;
