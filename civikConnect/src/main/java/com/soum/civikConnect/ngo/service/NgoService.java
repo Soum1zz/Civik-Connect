@@ -114,4 +114,11 @@ public class NgoService {
         return issues;
     }
 
+    public List<Ngo> getAllNgo() {
+        return ngoRepo.findAll();
+    }
+
+    public List<Ngo> searchNgo(String search) {
+        return ngoRepo.search(search);
+    }
 }
