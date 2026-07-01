@@ -29,7 +29,7 @@ a {
     align-items: center;
     gap: 24px;
     padding: 0 86px;
-    background: rgba(255, 255, 255, 0.96);
+    background: rgba(255, 255, 255, 1);
     border-bottom: 1px solid #dfe8e2;
     box-shadow: 0 3px 14px rgba(7, 37, 28, 0.08);
     box-sizing: border-box;
@@ -102,6 +102,7 @@ a {
     color: #057b37;
     font-size: 14px;
     font-weight: 800;
+    text-decoration: none;
     cursor: pointer;
 }
 
@@ -112,19 +113,26 @@ a {
 }
 
 .hero-section {
-    position: relative;
     min-height: 519px;
     display: grid;
-    grid-template-columns: minmax(430px, 42%) minmax(560px, 58%);
+    grid-template-columns: minmax(420px, 0.82fr) minmax(560px, 1.18fr);
     align-items: start;
-    padding: 43px 0 0 94px;
+    background: linear-gradient(
+        135deg,
+        #FAFAFA 0%,
+        #FBFBFB 50%,
+        #FCFCFC 100%
+        );
+    gap: 28px;
+    padding: 0 0 0 94px;
     box-sizing: border-box;
 }
 
-.hero-copy {
+.hero-left {
     position: relative;
     z-index: 2;
-    padding-top: 0;
+    padding-top: 43px;
+    min-width: 0;
 }
 
 .hero-pill {
@@ -183,28 +191,27 @@ a {
 }
 
 .hero-art {
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 66%;
+    min-width: 0;
+    height: 519px;
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
+    overflow: hidden;
     pointer-events: none;
 }
 
 .hero-art img {
     width: 100%;
     height: 100%;
+    max-height: none;
     object-fit:fill;
-    object-position: center bottom;
+    object-position: right top;
     display: block;
 }
 
 .process-section {
     position: relative;
-    padding: 44px 84px 19px;
+    padding: 44px 84px 44px;
     background: linear-gradient(180deg, #f4fbf8 0%, #f8fbfa 100%);
     text-align: center;
 }
@@ -246,17 +253,17 @@ a {
 .steps-sub:not(:last-child)::after {
     content: "";
     position: absolute;
-    top: 50px;
-    left: calc(50% + 54px);
-    width: calc(100% - 60px);
+    top: 70px;
+    left: calc(50% + 70px);
+    width: calc(100% - 100px);
     border-top: 2px dashed #c8e5d9;
 }
 
 .steps-sub img {
     position: relative;
     z-index: 1;
-    width: 61px;
-    height: 61px;
+    width: 91px;
+    height: 91px;
     margin-bottom: 13px;
     border-radius: 50%;
     object-fit: cover;
@@ -264,8 +271,8 @@ a {
 }
 
 .sub-header {
-    color: #0b1224;
-    font-size: 15px;
+    color: #37aa63;
+    font-size: 25px;
     font-weight: 900;
     line-height: 1.2;
 }
@@ -273,8 +280,8 @@ a {
 .steps-sub p {
     max-width: 190px;
     margin: 6px auto 0;
-    color: #0b1224;
-    font-size: 12px;
+    color: #2d362eb0;
+    font-size: 16px;
     font-weight: 500;
     line-height: 1.45;
 }
@@ -284,7 +291,7 @@ a {
 }
 
 .landing-footer {
-    padding: 21px 92px 13px;
+    padding: 28px 92px 16px;
     background:
         radial-gradient(circle at 20% 15%, rgba(15, 130, 79, 0.42), transparent 35%),
         linear-gradient(135deg, #00723f 0%, #003f37 58%, #002c2e 100%);
@@ -293,10 +300,11 @@ a {
 
 .footer-grid {
     display: grid;
-    grid-template-columns: 1.45fr 1fr 1.08fr 1.18fr 1.68fr;
-    gap: 54px;
+    grid-template-columns: minmax(240px, 1.55fr) minmax(120px, 0.85fr) minmax(140px, 0.95fr) minmax(160px, 1fr) minmax(240px, 1.45fr);
+    gap: 42px;
     max-width: 1296px;
     margin: 0 auto;
+    align-items: start;
 }
 
 .footer-logo {
@@ -304,7 +312,7 @@ a {
     align-items: center;
     gap: 9px;
     color: #ffffff;
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 900;
 }
 
@@ -319,12 +327,12 @@ a {
 }
 
 .footer-brand p {
-    max-width: 288px;
-    margin-top: 10px;
+    max-width: 310px;
+    margin-top: 12px;
     color: #f1fff7;
-    font-size: 14px;
+    font-size: 14.5px;
     font-weight: 500;
-    line-height: 1.45;
+    line-height: 1.55;
 }
 
 .social-links {
@@ -346,9 +354,9 @@ a {
 }
 
 .footer-grid h3 {
-    margin: 0 0 13px;
+    margin: 0 0 15px;
     color: #ffffff;
-    font-size: 16px;
+    font-size: 16.5px;
     font-weight: 900;
     line-height: 1.1;
 }
@@ -356,14 +364,20 @@ a {
 .footer-grid a {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     width: fit-content;
-    margin: 4px 0;
+    margin: 7px 0;
     color: #f5fff9;
-    font-size: 14px;
+    font-size: 14.5px;
     font-weight: 500;
-    line-height: 1.3;
+    line-height: 1.35;
     text-decoration: none;
+}
+
+.footer-grid a svg {
+    flex: 0 0 auto;
+    width: 14px;
+    height: 14px;
 }
 
 .footer-grid a:hover,
@@ -376,11 +390,11 @@ a {
     align-items: center;
     justify-content: space-between;
     max-width: 1296px;
-    margin: 17px auto 0;
-    padding-top: 12px;
+    margin: 22px auto 0;
+    padding-top: 13px;
     border-top: 1px solid rgba(255, 255, 255, 0.16);
     color: #e8fff2;
-    font-size: 13px;
+    font-size: 13.5px;
     font-weight: 500;
 }
 
@@ -417,14 +431,20 @@ a {
 
     .hero-section {
         grid-template-columns: 1fr;
-        min-height: 760px;
+        min-height: auto;
         padding: 36px 34px 0;
     }
 
     .hero-art {
-        top: 255px;
         width: 100%;
-        height: 505px;
+        height: auto;
+        margin-top: 22px;
+        justify-content: center;
+    }
+
+    .hero-art img {
+        max-height: 480px;
+        object-position: center bottom;
     }
 
     .footer-grid {
@@ -460,8 +480,7 @@ a {
     }
 
     .hero-section {
-        min-height: auto;
-        padding: 30px 20px 330px;
+        padding: 30px 20px 0;
     }
 
     .hero-title {
@@ -474,9 +493,12 @@ a {
     }
 
     .hero-art {
-        top: auto;
-        bottom: 0;
-        height: 330px;
+        height: auto;
+        margin-top: 20px;
+    }
+
+    .hero-art img {
+        max-height: 330px;
     }
 
     .process-section {
@@ -517,7 +539,7 @@ a {
     }
 
     .hero-section {
-        padding-bottom: 270px;
+        padding-bottom: 0;
     }
 
     .hero-pill {
@@ -533,7 +555,11 @@ a {
     }
 
     .hero-art {
-        height: 270px;
+        height: auto;
+    }
+
+    .hero-art img {
+        max-height: 270px;
     }
 
     .steps-div,

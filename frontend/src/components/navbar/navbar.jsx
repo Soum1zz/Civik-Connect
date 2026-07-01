@@ -20,10 +20,10 @@ export default function Navbar() {
             </nav>
 
             <div className="nav-actions">
-                <button className='auth-btn'>
+                <a className='auth-btn' href="/auth">
                     <FaRegUser />
                     Log In
-                </button>
+                </a>
             </div>
         </header>
     )

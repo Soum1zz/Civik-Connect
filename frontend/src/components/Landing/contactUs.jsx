@@ -1,4 +1,4 @@
-import { FaEnvelope, FaFacebookF, FaInstagram, FaMapMarkerAlt, FaPhoneAlt, FaRegHandshake, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa'
 
 export default function ContactUs() {
     return (
@@ -9,7 +9,6 @@ export default function ContactUs() {
                         <span>Civik Connect</span>
                     </div>
                     <p>Connecting citizens, NGOs, and authorities to build a cleaner, safer and better tomorrow.</p>
-                    
                 </div>
 
                 <div>
@@ -43,7 +42,7 @@ export default function ContactUs() {
             </div>
 
             <div className="footer-bottom">
-                <span>© 2024 Civik Connect. All rights reserved.</span>
+                <span>&copy; 2024 Civik Connect. All rights reserved.</span>
                 <div>
                     <a href="#privacy">Privacy Policy</a>
                     <a href="#terms">Terms of Service</a>
