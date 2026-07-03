@@ -4,16 +4,7 @@ import '../../styles/Issue.css'
 export default function Issue() {
     return (
         <main className="issue-page">
-            <aside className="issue-sidebar">
-                <div className="dash-logo"><FaCheckCircle /> WeCare</div>
-                <nav>
-                    <a href="/citizen"><FaHome /> Dashboard</a>
-                    <a className="active" href="/issue"><FaRegFileAlt /> Report Issue</a>
-                    <a href="#my-issues"><FaListAlt /> My Issues</a>
-                    <a href="#profile"><FaUser /> Profile</a>
-                </nav>
-                <a className="logout-link" href="/"><FaSignOutAlt /> Logout</a>
-            </aside>
+            
 
             <section className="issue-form-wrap">
                 <form className="issue-form" onSubmit={(event) => event.preventDefault()}>
@@ -59,7 +50,7 @@ export default function Issue() {
                         Upload Images
                         <div className="upload-box">
                             <FaUpload />
-                            <strong>Click or drag files to upload</strong>
+                            <strong>Click to upload</strong>
                             <span>PNG, JPG up to 10MB</span>
                         </div>
                     </label>

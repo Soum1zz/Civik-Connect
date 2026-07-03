@@ -6,11 +6,12 @@ import Auth from './pages/auth/Auth'
 import Citizen from './pages/citizen/Citizen'
 import Issue from './pages/issue/Issue'
 import Landing from './pages/landing/Landing'
+import Mod from './pages/moderator/Mod'
 import Ngo from './pages/ngo/Ngo'
 
 function App() {
   const { pathname } = useLocation()
-  const showNavbar = !['/citizen', '/issue', '/ngo'].includes(pathname)
+  const showNavbar = !['/citizen', '/issue', '/ngo', '/mod'].includes(pathname)
 
   return (
     <div>
@@ -22,6 +23,7 @@ function App() {
         <Route path='/citizen' element={<Citizen/>}/>
         <Route path='/issue' element={<Issue/>}/>
         <Route path='/ngo' element={<Ngo/>}/>
+        <Route path='/mod' element={<Mod/>}/>
         
       </Routes>
 

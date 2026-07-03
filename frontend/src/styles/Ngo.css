@@ -1,35 +1,12 @@
 .ngo-page {
     min-height: 100vh;
     display: grid;
-    grid-template-columns: 214px 1fr;
+    grid-template-columns: 314px 1fr;
     background: #f7faf9;
     color: #101827;
+
     font-family: system-ui, "Segoe UI", sans-serif;
 }
-
-.ngo-sidebar {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    padding: 22px 18px;
-    border-right: 1px solid #e1e8e4;
-    background: #ffffff;
-    box-sizing: border-box;
-}
-
-.dash-logo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #101827;
-    font-size: 15px;
-    font-weight: 900;
-}
-
-.dash-logo svg {
-    color: #069647;
-}
-
 .ngo-profile {
     display: grid;
     place-items: center;
@@ -40,53 +17,56 @@
     text-align: center;
 }
 
+.ngo-sidebar {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 22px 18px;
+    border-right: 1px solid #e1e8e4;
+    background: #ffffff;
+    box-sizing: border-box;
+}
+
+.ngo-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 1rem;
+    
+}
+
+.dash-logo p{
+    color: #43516e;
+    font-size: 27px;
+    font-weight: 600;
+}
+
+.dash-logo img {
+    width: 50px;
+}
+
+
+
+.ngo-sidebar a,
 .logout-link {
-    margin-top: auto;
-}
-
-.ngo-avatar {
-    width: 42px;
-    height: 42px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    background: #e4e0ff;
-    color: #6457d7;
-    font-size: 13px;
-    font-weight: 900;
-}
-
-.ngo-profile strong {
-    color: #111827;
-    font-size: 13px;
-    font-weight: 900;
-}
-
-.ngo-profile span {
-    color: #6b7280;
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.ngo-sidebar a {
     display: flex;
     align-items: center;
     gap: 10px;
     min-height: 36px;
-    padding: 0 12px;
+    padding: 5px 12px;
     border-radius: 6px;
     color: #182235;
-    font-size: 13px;
-    font-weight: 800;
+    font-size: 18px;
+    font-weight: 500;
     text-decoration: none;
 }
 
 .ngo-sidebar a.active,
 .ngo-sidebar a:hover {
-    background: #ebe9ff;
-    color: #6457d7;
+    background: #e9f8ef;
+    color: #6d5bd0;
 }
-
 .ngo-main {
     padding: 0 28px 28px;
 }
@@ -115,13 +95,13 @@
 
 .ngo-title-row h1 {
     margin: 0;
-    color: #111827;
-    font-size: 22px;
-    font-weight: 900;
+    color: #263796;
+    font-size: 42px;
+    font-weight: 700;
 }
 
 .ngo-title-row p {
-    margin: 6px 0 0;
+    margin: 12px 0 0;
     color: #677487;
     font-size: 13px;
     font-weight: 600;
@@ -131,15 +111,15 @@
     display: grid;
     grid-template-columns: minmax(160px, 1fr) minmax(140px, 0.9fr) minmax(220px, 1.4fr);
     gap: 14px;
-    margin: 22px 0;
+    margin: 42px 0;
 }
 
 .issue-filters label {
     display: grid;
     gap: 7px;
     color: #1e293b;
-    font-size: 12px;
-    font-weight: 900;
+    font-size:22px;
+    font-weight: 500;
 }
 
 .issue-filters select,
@@ -153,7 +133,7 @@
 .issue-filters select {
     padding: 0 10px;
     color: #101827;
-    font: 700 13px system-ui, "Segoe UI", sans-serif;
+    font: 500 13px system-ui, "Segoe UI", sans-serif;
 }
 
 .ngo-search {
@@ -164,15 +144,18 @@
 }
 
 .ngo-search input {
+    background: transparent;
+    color: #101827;
+
     flex: 1;
     min-width: 0;
     border: 0;
     outline: 0;
-    font: 700 13px system-ui, "Segoe UI", sans-serif;
+    font: 600 18px system-ui, "Segoe UI", sans-serif;
 }
 
 .ngo-search svg {
-    color: #677487;
+    color: #263796;
 }
 
 .ngo-issues {

@@ -1,7 +1,6 @@
 .issue-page {
     min-height: 100vh;
     display: grid;
-    grid-template-columns: 214px 1fr;
     background: #f7faf9;
     color: #101827;
     font-family: system-ui, "Segoe UI", sans-serif;
@@ -73,24 +72,25 @@
 
 .form-heading h1 {
     margin: 0;
-    color: #111827;
-    font-size: 20px;
-    font-weight: 900;
+    color: #078c42;
+    font-size: 34px;
+    letter-spacing: 1px;
+    font-weight: 700;
 }
 
 .form-heading p {
-    margin: 6px 0 0;
+    margin: 9px 0 0;
     color: #677487;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
 }
 
 .issue-form label {
     display: grid;
     gap: 7px;
-    color: #1e293b;
-    font-size: 12px;
-    font-weight: 900;
+    color: #182235;
+    font-size: 23px;
+    font-weight: 500;
 }
 
 .issue-form input,
@@ -108,6 +108,7 @@
 
 .issue-form input,
 .issue-form select {
+    margin-top: 6px;
     height: 42px;
     padding: 0 12px;
 }
@@ -168,15 +169,24 @@
 
 .issue-form button {
     height: 42px;
+    width: 158px;
+    margin: 0 auto;
+    margin-top: 2rem ;
+    margin-bottom: 2rem ;
+
     border: 0;
     border-radius: 6px;
     background: #079447;
     color: #ffffff;
-    font-size: 13px;
-    font-weight: 900;
+    font-size: 20px;
+    font-weight: 500;
     cursor: pointer;
 }
-
+.issue-form button:hover{
+    border: 1px solid #078c42;
+    background: #f0f0f0;
+    color: #079447;
+}
 @media (max-width: 860px) {
     .issue-page {
         grid-template-columns: 1fr;
