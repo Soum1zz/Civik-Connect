@@ -12,11 +12,7 @@ export default function Navbar() {
 
             <nav className="nav-links" aria-label="Main navigation">
                 <a className="active" href="#home">Home</a>
-                <a href="#about">About Us</a>
-                <a href="#how-it-works">How It Works</a>
                 <a href="#ngos">NGOs</a>
-                <a href="#issues">Issues</a>
-                <a href="#contact">Contact</a>
             </nav>
 
             <div className="nav-actions">

@@ -1,8 +1,8 @@
 import '../../styles/Citizen.css'
 import logo from '/logo.png'
-import { FaHome, FaListAlt, FaUser, FaSignOutAlt } from 'react-icons/fa';
+import { FaListAlt, FaUser, FaSignOutAlt } from 'react-icons/fa';
 
-export default function MyNav() {
+export default function MyNav({navActive, setNavActive }) {
   return (
     <div className="citizen-sidebar">
       <div className="dash-logo">
@@ -10,10 +10,10 @@ export default function MyNav() {
         <p>Civik Connect</p>
       </div>
       <nav>
-        <a className="active" href="#issues">
+        <a className={navActive === 'myIssues' ? 'active' : ''} onClick={() => setNavActive('myIssues')}>
           <FaListAlt /> My Issues
         </a>
-        <a href="#profile">
+        <a className={navActive === 'myProfile' ? 'active' : ''} onClick={() => setNavActive('myProfile')}>
           <FaUser /> Profile
         </a>
       </nav>

@@ -1,7 +1,7 @@
 import { FaBell, FaCheckCircle, FaClipboardList, FaHome, FaListAlt, FaSearch, FaSignOutAlt, FaUser, FaUsers } from 'react-icons/fa'
 import logo from '../../../public/logo.png'
 
-export default function ngoNav(){
+export default function ngoNav({navActive, setNavActive}){
     return(
         <div>
             <aside className="ngo-sidebar">
@@ -15,9 +15,15 @@ export default function ngoNav(){
                     <span>NGO Dashboard</span>
                 </div>
                 <nav>
-                    <a className="active" href="/ngo"><FaListAlt /> Available Issues</a>
-                    <a href="#assigned"><FaClipboardList /> My Issues</a>
-                    <a href="#profile"><FaUser /> Profile</a>
+                    <a className={navActive==="avIssues" ?"active":""}
+                    onClick={()=>{setNavActive("avIssues")}}
+                    ><FaListAlt /> Available Issues</a>
+                    <a className={navActive==="myIssues" ?"active":""}
+                    onClick={()=>{setNavActive("myIssues")}}
+                    ><FaClipboardList /> My Issues</a>
+                    <a className={navActive==="ngoProf" ?"active":""}
+                    onClick={()=>{setNavActive("ngoProf")}}
+                    ><FaUser /> Profile</a>
                 </nav>
                 <a className="logout-link" href="/"><FaSignOutAlt /> Logout</a>
             </aside>
