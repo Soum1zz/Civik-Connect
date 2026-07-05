@@ -75,6 +75,7 @@ public class IssueService {
     }
 
 
-
-    
+    public List<IssueCategory> getAllIssueCategory() {
+        return issueCategoryRepo.findAll();
+    }
 }

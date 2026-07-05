@@ -16,11 +16,15 @@ public interface NgoRepo extends JpaRepository<Ngo,Long> {
 
     @Query(
             """
-                SELECT n FROM Ngo n
+                SELECT DISTINCT n FROM Ngo n
+                LEFT JOIN n.issueCategory c
                 WHERE (
-                    LOWER(n.name) LIKE CONCAT('%', :key, '%') OR
-                    LOWER(n.description) LIKE CONCAT('%', :key, '%') OR
-                    LOWER(n.issueCategory) LIKE CONCAT('%', :key, '%')
+                    LOWER(n.user.username) LIKE LOWER(CONCAT('%', :key, '%')) OR
+                    LOWER(n.description) LIKE LOWER(CONCAT('%', :key, '%')) OR
+                    LOWER(n.address) LIKE LOWER(CONCAT('%', :key, '%')) OR
+                    LOWER(n.state) LIKE LOWER(CONCAT('%', :key, '%')) OR
+                    LOWER(n.officialWebsite) LIKE LOWER(CONCAT('%', :key, '%')) OR
+                    LOWER(c.name) LIKE LOWER(CONCAT('%', :key, '%'))
                 )
              """
     )

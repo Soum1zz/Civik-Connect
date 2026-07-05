@@ -6,6 +6,8 @@ import com.soum.civikConnect.auth.dto.AuthResponse;
 import com.soum.civikConnect.auth.dto.LoginReq;
 import com.soum.civikConnect.config.security.UserPrincipal;
 import com.soum.civikConnect.config.service.JwtService;
+import com.soum.civikConnect.ngo.dto.ngoReq;
+import com.soum.civikConnect.ngo.service.NgoService;
 import com.soum.civikConnect.user.dto.userReq;
 import com.soum.civikConnect.user.dto.userRes;
 import com.soum.civikConnect.user.entity.User;
@@ -31,6 +33,8 @@ public class AuthController {
     private UserService userService;
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private NgoService ngoService;
 
     @GetMapping("/me")
     public ResponseEntity<userRes> getMe(@AuthenticationPrincipal UserPrincipal principal){
@@ -51,6 +55,14 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<userRes> addUser(@RequestBody userReq user ) throws IOException {
         return new ResponseEntity<>(userService.addUser(user),HttpStatus.CREATED);
+    }
+    @PutMapping("/register/ngo")
+    public ResponseEntity<?> create(@RequestBody ngoReq req) {
+        try{
+            return new ResponseEntity<>(ngoService.createNgo(req), HttpStatus.CREATED);
+        }catch(Exception e){
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PostMapping("/login")

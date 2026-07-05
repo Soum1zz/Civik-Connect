@@ -1,8 +1,10 @@
 import api from "./axios";
 
-const issueCreate = (data)=>
+export const issueCreate = (data)=>
     api.put("/issue/create",data);
 
-const updateCreate = (data)=>
+export const updateCreate = (data)=>
     api.put("/issue/update",data);
 
+export const getAllCategories = ()=>
+    api.get("/search/issue-categories");

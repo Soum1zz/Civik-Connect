@@ -19,7 +19,7 @@ export default function Ngo() {
             <NgoIssues/>
             } */}
             {
-                navActive==="ngoProf"&&
+                navActive==="ngoProf"&& 
             <NgoProfile/>
             }
 

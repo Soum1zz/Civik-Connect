@@ -1,5 +1,7 @@
 package com.soum.civikConnect.common.controller;
 
+import com.soum.civikConnect.IssueCategory.entity.IssueCategory;
+import com.soum.civikConnect.issue.service.IssueService;
 import com.soum.civikConnect.ngo.entity.Ngo;
 import com.soum.civikConnect.ngo.service.NgoService;
 import com.soum.civikConnect.user.service.UserService;
@@ -18,11 +20,21 @@ import java.util.List;
 public class SearchController {
     @Autowired
     private NgoService ngoService;
-
+    @Autowired
+    private IssueService issueService;
     @GetMapping("/all-ngo")
     public ResponseEntity<List<Ngo>> getAllNgo(){
         try{
             return new ResponseEntity<>(ngoService.getAllNgo(), HttpStatus.OK);
+        }catch(Exception ex){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/issue-categories")
+    public ResponseEntity<List<IssueCategory>> getAllCategories(){
+        try{
+            return new ResponseEntity<>(issueService.getAllIssueCategory(),HttpStatus.OK);
         }catch(Exception ex){
             return ResponseEntity.badRequest().build();
         }

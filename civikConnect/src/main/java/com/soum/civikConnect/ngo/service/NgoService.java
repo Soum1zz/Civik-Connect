@@ -1,6 +1,7 @@
 package com.soum.civikConnect.ngo.service;
 
 import com.soum.civikConnect.IssueCategory.entity.IssueCategory;
+import com.soum.civikConnect.IssueCategory.repo.IssueCategoryRepo;
 import com.soum.civikConnect.IssueInterest.entity.IssueInterest;
 import com.soum.civikConnect.IssueInterest.repo.IssueInterestRepo;
 import com.soum.civikConnect.issue.entity.Issue;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,6 +37,9 @@ public class NgoService {
     @Autowired
     private IssueRepo issueRepo;
 
+    @Autowired
+    private IssueCategoryRepo issueCategoryRepo;
+
     private ngoRes toNgoRes(Ngo savedNgo) {
         return new ngoRes(
                 savedNgo.getNgoId(),
@@ -49,11 +54,17 @@ public class NgoService {
     //Ngo created
     @Transactional
     public ngoRes createNgo(ngoReq req){
+        Set<IssueCategory> categories = new HashSet<>();
+        for(Integer catId: req.categoriesId()){
+            IssueCategory issueCategory= issueCategoryRepo.findById(catId).orElseThrow(()->new RuntimeException("Category not found"));
+            categories.add(issueCategory);
+        }
         User user = userRepo.findById(req.ngoId()).orElseThrow(()->new RuntimeException("user not found"));
         Ngo ngo = Ngo.builder()
                 .user(user)
                 .description(req.description())
                 .address(req.address())
+                .issueCategory(categories)
                 .officialWebsite(req.officialWebsite())
                 .isVerified(false)
                 .state(req.State())

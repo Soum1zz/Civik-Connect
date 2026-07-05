@@ -18,8 +18,8 @@ public interface IssueRepo extends JpaRepository<Issue, Long> {
       AND i.state = :state
       AND i.category.id IN (
             SELECT c.id
-            FROM NGO n
-            JOIN n.categories c
+            FROM Ngo n
+            JOIN n.issueCategory c
             WHERE n.ngoId = :ngoId
       )
 """)
@@ -28,5 +28,5 @@ public interface IssueRepo extends JpaRepository<Issue, Long> {
             @Param("state") String state
     );
 
-    List<Issue> findByIssueCategoryName(String underReview);
+    List<Issue> findByStatus(com.soum.civikConnect.common.enums.IssueStatus status);
 }

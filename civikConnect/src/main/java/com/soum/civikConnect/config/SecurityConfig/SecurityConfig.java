@@ -50,6 +50,7 @@ public class SecurityConfig {
                 .csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
+                                "/search/**",
                                 "/register",
                                 "/auth/**",
                                 "/api/user/*/image",

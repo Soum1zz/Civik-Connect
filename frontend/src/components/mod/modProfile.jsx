@@ -11,13 +11,6 @@ const moderatorRows = [
 export default function ModProfile() {
     return (
         <main className="mod-profile-page">
-            <header className="mod-profile-hero">
-                <div className="mod-profile-hero-icon"><FaUserShield /></div>
-                <div>
-                    <h1>Moderator Profile</h1>
-                    <p>Manage your moderator profile and responsibilities</p>
-                </div>
-            </header>
 
             <section className="mod-profile-card">
                 <div className="mod-profile-card-title">
@@ -28,7 +21,7 @@ export default function ModProfile() {
                 <div className="mod-profile-top">
                     <div className="mod-profile-avatar">
                         <FaUserShield />
-                        <button type="button" aria-label="Change photo"><FaCamera /></button>
+                        {/* <button type="button" aria-label="Change photo"><FaCamera /></button> */}
                     </div>
                     <div>
                         <h3>Neha Verma</h3>
@@ -38,14 +31,6 @@ export default function ModProfile() {
                         <p><FaMapMarkerAlt /> Bengaluru, Karnataka</p>
                     </div>
                 </div>
-
-                <nav className="mod-profile-tabs" aria-label="Moderator profile sections">
-                    <a className="active" href="#overview">Overview</a>
-                    <a href="#assigned">Assigned Reports</a>
-                    <a href="#activity">Moderation Activity</a>
-                    <a href="#statistics">Statistics</a>
-                </nav>
-
                 <div className="mod-profile-note">
                     <div><FaShieldAlt /></div>
                     <p><strong>Thank you for keeping Civik Connect safe!</strong>Your moderation helps maintain a trusted community.</p>
@@ -73,11 +58,6 @@ export default function ModProfile() {
                     </div>
                 </section>
 
-                <div className="mod-profile-metrics">
-                    <div><FaChartLine /><strong>1,247</strong><span>Total Reviewed</span></div>
-                    <div><FaShieldAlt /><strong>1,102</strong><span>Approved</span></div>
-                    <div><FaUserShield /><strong>98%</strong><span>Excellent</span></div>
-                </div>
             </section>
         </main>
     )

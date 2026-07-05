@@ -103,7 +103,7 @@ public class moderatorService {
 
     //fetch all issues that are yet to verify
     public List<Issue> findAllNotVerifiedIssues(){
-        List<Issue> issues= issueRepo.findByIssueCategoryName("UNDER_REVIEW");
+        List<Issue> issues= issueRepo.findByStatus(IssueStatus.UNDER_REVIEW);
         return issues;
     }
 

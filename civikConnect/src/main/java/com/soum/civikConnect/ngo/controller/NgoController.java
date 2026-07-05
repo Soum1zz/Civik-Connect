@@ -19,14 +19,7 @@ public class NgoController {
     @Autowired
     private NgoService ngoService;
 
-    @PutMapping("/ngo/create")
-    public ResponseEntity<?> create(@RequestBody ngoReq req) {
-        try{
-            return new ResponseEntity<>(ngoService.createNgo(req), HttpStatus.CREATED);
-        }catch(Exception e){
-            return ResponseEntity.badRequest().build();
-        }
-    }
+
 
     @PutMapping("/ngo/update")
     public ResponseEntity<?> update(@AuthenticationPrincipal UserPrincipal principal ,@RequestBody ngoReq req) {

@@ -1,5 +1,7 @@
 package com.soum.civikConnect.ngo.dto;
 
+import java.util.Set;
+
 public record ngoReq(
         Long ngoId,
 
@@ -11,7 +13,6 @@ public record ngoReq(
 
         String State,
 
-        boolean isVerified
-
+        Set<Integer> categoriesId
 ) {
 }

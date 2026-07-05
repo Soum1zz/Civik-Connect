@@ -24,7 +24,7 @@ public class Issue {
 
     private String title;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "reporter_id")
     private User reporter;
 
@@ -34,7 +34,7 @@ public class Issue {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private IssueCategory category;
 
     @Enumerated(EnumType.STRING)

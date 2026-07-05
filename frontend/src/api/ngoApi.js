@@ -1,16 +1,22 @@
 import api from "./axios";
 
-const ngoCreate= (data)=>
-    api.put("/ngo/create",data);
+export const ngoCreate= (data)=>
+    api.put("/auth/register/ngo",data,
+        {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }
+    );
 
-const ngoUpdate= (data)=>
+export const ngoUpdate= (data)=>
     api.put("/ngo/update",data);
 
-const ngoShowInt= (data)=>
+export const ngoShowInt= (data)=>
     api.put(`/ngo/${ngoId}/show-interest`,data);
 
-const ngoCat= ()=>
+export const ngoCat= ()=>
     api.get(`/ngo/${ngoId}/all-categories`);
 
-const ngoIssues= ()=>
+export const ngoIssues= ()=>
     api.get(`/ngo/${ngoId}/show-interest`);

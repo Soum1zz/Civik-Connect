@@ -6,14 +6,12 @@
     color: #101827;
     font-family: system-ui, "Segoe UI", sans-serif;
 }
-
-
-/**/
 .mod-sidebar {
     height: 100vh;
     display: flex;
     flex-direction: column;
     gap: 24px;
+    justify-content: flex-start;
     padding: 22px 18px;
     border-right: 1px solid #e1e8e4;
     background: #ffffff;
@@ -42,7 +40,12 @@
     text-decoration: none;
 }
 
-.mod-sidebar a.active,
+.mod-sidebar .mod-logout,
+.logout-link {
+    margin-top: auto;
+}
+
+.mod-sidebar .active,
 .mod-sidebar a:hover {
     background: #f0ecb3;
     color: #5bbfd0;
@@ -151,32 +154,6 @@
     margin-bottom: 32px;
 }
 
-.mod-profile-hero-icon {
-    width: 66px;
-    height: 66px;
-    display: grid;
-    place-items: center;
-    border: 1px solid #8ed7ad;
-    border-radius: 50%;
-    background: #eef9f3;
-    color: #079447;
-    font-size: 30px;
-}
-
-.mod-profile-hero h1 {
-    margin: 0;
-    color: #071123;
-    font-size: 31px;
-    font-weight: 900;
-}
-
-.mod-profile-hero p {
-    margin: 10px 0 0;
-    color: #334155;
-    font-size: 14px;
-    font-weight: 600;
-}
-
 .mod-profile-card {
     width: min(100%, 690px);
     margin: 0 auto;
@@ -209,10 +186,10 @@
     align-items: center;
     gap: 9px;
     padding: 0 18px;
-    border: 1px solid #8bd4aa;
+    border: 1px solid #f0ecb3;
     border-radius: 6px;
     background: #ffffff;
-    color: #078c42;
+    color: #5bbfd0;
     font-size: 13px;
     font-weight: 900;
     cursor: pointer;
@@ -232,8 +209,8 @@
     display: grid;
     place-items: center;
     border-radius: 50%;
-    background: #eaf5ef;
-    color: #079447;
+    background: #f0ecb3;
+    color: #72d1e2;
     font-size: 72px;
 }
 
@@ -247,7 +224,7 @@
     place-items: center;
     border: 3px solid #ffffff;
     border-radius: 50%;
-    background: #079447;
+    background: #f0ecb3;
     color: #ffffff;
     cursor: pointer;
 }
@@ -270,7 +247,7 @@
 }
 
 .mod-profile-top p svg {
-    color: #31a86a;
+    color: #8d8519;
 }
 
 .mod-verified-badge {
@@ -283,7 +260,7 @@
     border: 1px solid #b8e6ca;
     border-radius: 7px;
     background: #e8f8ef;
-    color: #078c42;
+    color: #5bbfd0;
     font-size: 12px;
     font-weight: 900;
 }
@@ -304,8 +281,8 @@
 }
 
 .mod-profile-tabs a.active {
-    color: #078c42;
-    border-bottom: 3px solid #078c42;
+    color: #5bbfd0;
+    border-bottom: 3px solid #5bbfd0;
 }
 
 .mod-profile-note,
@@ -329,8 +306,8 @@
     display: grid;
     place-items: center;
     border-radius: 50%;
-    background: #ddf4e7;
-    color: #079447;
+    background: #f0ecb3;
+    color: #72d1e2;
     font-size: 28px;
 }
 
@@ -344,7 +321,7 @@
 .mod-profile-note strong {
     display: block;
     margin-bottom: 7px;
-    color: #04743a;
+    color: #72d1e2;
     font-weight: 900;
 }
 
@@ -381,7 +358,7 @@
     padding: 5px 12px;
     border-radius: 999px;
     background: #dcfce7;
-    color: #078c42;
+    color: #5bbfd0;
     font-size: 12px;
     font-weight: 900;
 }
@@ -413,7 +390,7 @@
     place-items: center;
     gap: 7px;
     border-right: 1px solid #cfe6d9;
-    color: #078c42;
+    color: #5bbfd0;
 }
 
 .mod-profile-metrics div:last-child {
@@ -421,7 +398,7 @@
 }
 
 .mod-profile-metrics strong {
-    color: #078c42;
+    color: #5bbfd0;
     font-size: 24px;
     font-weight: 900;
 }
