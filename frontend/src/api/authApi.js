@@ -1,5 +1,6 @@
 import api from "./axios";
 
+const token= localStorage.getItem("token")
 export const login = (data) =>
   api.post("/auth/login", data,
     {
@@ -17,4 +18,10 @@ export const register = (data) => api.post("/auth/register", data,
   }
 );
 
-export const me = (data) => api.post("/auth/me", data);
+export const me = (data) => api.get("/auth/me",
+  {
+    headers: {
+        Authorization: `Bearer ${token}`,
+      },
+  }
+ );

@@ -19,7 +19,14 @@ public class NgoController {
     @Autowired
     private NgoService ngoService;
 
-
+    @GetMapping("/my-ngo")
+    public ResponseEntity<?> getNgoById(@AuthenticationPrincipal UserPrincipal principal ){
+        try{
+            return new ResponseEntity<>(ngoService.getNgoById(principal.getUser()), HttpStatus.OK);
+        }catch(Exception ex){
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
     @PutMapping("/ngo/update")
     public ResponseEntity<?> update(@AuthenticationPrincipal UserPrincipal principal ,@RequestBody ngoReq req) {
@@ -40,15 +47,6 @@ public class NgoController {
         return  ResponseEntity.ok().build();
     }
 
-    @GetMapping("/ngo/{ngoId}/all-categories")
-    public ResponseEntity<?> catFields(@PathVariable("ngoId") Long ngoId) {
-        try{
-            return new ResponseEntity<>(ngoService.getRelatedIssues(ngoId), HttpStatus.OK);
-
-        }catch(Exception e){
-            return ResponseEntity.badRequest().build();
-        }
-    }
 
     @GetMapping("/ngo/{ngoId}/all-issues")
     public ResponseEntity<?> findNgoIssues(@PathVariable("ngoId") Long ngoId) {

@@ -1,15 +1,30 @@
 import { FaBuilding, FaCamera, FaEdit, FaEnvelope, FaHandsHelping, FaLeaf, FaMapMarkerAlt, FaPhoneAlt, FaSeedling, FaShieldAlt, FaUsers } from 'react-icons/fa'
 import '../../styles/Ngo.css'
+import { useEffect, useState } from 'react'
+import { ngoCat } from '../../api/ngoApi';
 
 
-const organizationRows = [
-    { label: 'NGO Name', value: 'Green Earth Foundation' },
-    { label: 'Registration Number', value: 'NGO/KA/2021/123456' },
-    { label: 'Website', value: 'www.greenearth.org', link: true },
-    { label: 'Established On', value: 'March 10, 2021' },
-]
 
-export default function NgoProfile() {
+
+export default function NgoProfile({myNgo}) {
+    const [mycats, setMycats] = useState([]);
+    const ngoId= myNgo?.ngoId;
+    useEffect(() => {
+
+    if (!ngoId) return;
+
+    async function getCats() {
+        try {
+            const res = await ngoCat(ngoId);
+            setMycats(res.data);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    getCats();
+
+}, [ngoId]);
     return (
         <main className="ngo-profile-page">
 
@@ -24,11 +39,12 @@ export default function NgoProfile() {
                         <FaSeedling />
                     </div>
                     <div>
-                        <h3>Green Earth Foundation</h3>
-                        <span className="ngo-verified-badge"><FaShieldAlt /> Verified NGO</span>
-                        <p><FaEnvelope /> contact@greenearth.org</p>
-                        <p><FaPhoneAlt /> +91 91234 56789</p>
-                        <p><FaMapMarkerAlt /> Bengaluru, Karnataka</p>
+                        <h3>{myNgo?.name}</h3>
+                        {myNgo?.isVerified &&
+                        <span className="ngo-verified-badge"><FaShieldAlt /> Verified NGO</span>}
+                        <p><FaEnvelope /> {myNgo?.email}</p>
+                        <p><FaPhoneAlt /> {myNgo?.phone}</p>
+                        <p><FaMapMarkerAlt /> {myNgo?.address}</p>
                     </div>
                 </div>
 
@@ -42,26 +58,34 @@ export default function NgoProfile() {
                     <div><FaHandsHelping /></div>
                     <p><strong>Thank you for your commitment!</strong>Together we are building a sustainable future.</p>
                 </div>
-
                 <section className="ngo-profile-info">
                     <h4>Organization Information</h4>
-                    {organizationRows.map((row) => (
-                        <div className="ngo-profile-info-row" key={row.label}>
-                            <label>{row.label}</label>
-                            <strong className={row.link ? 'link-value' : ''}>{row.value}</strong>
+                    
+                        <div className="ngo-profile-info-row" >
+                            <label>NGO Name</label>
+                            <strong className='' >{myNgo?.name}</strong>
                         </div>
-                    ))}
+                        <div className="ngo-profile-info-row" >
+                            <label>Website</label>
+                            <strong className=''>{myNgo?.officialWebsite}</strong>
+                        </div>
+
+                        
                     <div className="ngo-profile-info-row">
                         <label>Categories</label>
                         <strong className="ngo-profile-tags">
-                            <span>Environment</span>
-                            <span>Education</span>
-                            <span>Women Welfare</span>
+                            {
+                                mycats.map(cat=>(
+                                    <span key={cat.id}>
+                                        {cat.name}
+                                    </span>
+                                ))
+                            }
                         </strong>
                     </div>
                     <div className="ngo-profile-info-row about-row">
                         <label>About Us</label>
-                        <strong>We work towards creating a sustainable environment through awareness, plantation drives and waste management initiatives.</strong>
+                        <strong>{myNgo?.description}</strong>
                     </div>
                 </section>
 

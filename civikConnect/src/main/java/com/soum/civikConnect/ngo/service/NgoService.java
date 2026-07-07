@@ -42,6 +42,9 @@ public class NgoService {
 
     private ngoRes toNgoRes(Ngo savedNgo) {
         return new ngoRes(
+                savedNgo.getUser().getUsername(),
+                savedNgo.getUser().getEmail(),
+                savedNgo.getUser().getPhoneNumber(),
                 savedNgo.getNgoId(),
                 savedNgo.getOfficialWebsite(),
                 savedNgo.getDescription(),
@@ -129,7 +132,20 @@ public class NgoService {
         return ngoRepo.findAll();
     }
 
+
+
     public List<Ngo> searchNgo(String search) {
         return ngoRepo.search(search);
+    }
+
+    public ngoRes getNgoById(User user) {
+        Ngo ngo= ngoRepo.findByUserUserId(user.getUserId()).orElseThrow(()->new RuntimeException("ngo not found"));
+        return toNgoRes(ngo);
+    }
+
+    public Set getIssueCats(Long ngoId) {
+        Ngo ngo = ngoRepo.findById(ngoId).orElseThrow(()->new RuntimeException("ngo not found"));
+        Set<IssueCategory> ngoCats= ngo.getIssueCategory();
+        return ngoCats;
     }
 }

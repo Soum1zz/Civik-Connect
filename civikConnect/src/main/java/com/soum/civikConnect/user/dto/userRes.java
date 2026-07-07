@@ -5,6 +5,7 @@ public record userRes(
         String name,
         String email,
         String phoneNumber,
+
         String role
 ) {
 }

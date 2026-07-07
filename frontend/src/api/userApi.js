@@ -1,13 +1,15 @@
 import api from "./axios";
 
-const getAll = ()=>
+export const getAll = ()=>
     api.get("/user/all-user");
 
-const createUser = (data)=>
+
+
+export const createUser = (data)=>
     api.put("/user/create",data);
 
-const updateUser = (data)=>
+export const updateUser = (data)=>
     api.put("/user/update",data);
 
-const deleteUser = (data)=>
+export const deleteUser = (data)=>
     api.delete("/user/delete",data);

@@ -24,18 +24,24 @@ public class Issue {
 
     private String title;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+
+    
+    @ManyToOne
     @JoinColumn(name = "reporter_id")
     private User reporter;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private IssueCategory category;
+
+    @ManyToOne
+    @JoinColumn(name = "assigned_ngo_id")
     private Ngo assignedNgo;
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private IssueCategory category;
+
 
     @Enumerated(EnumType.STRING)
     private IssueStatus status;

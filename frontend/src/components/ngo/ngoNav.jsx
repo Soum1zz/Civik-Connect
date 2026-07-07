@@ -1,7 +1,12 @@
 import { FaBell, FaCheckCircle, FaClipboardList, FaHome, FaListAlt, FaSearch, FaSignOutAlt, FaUser, FaUsers } from 'react-icons/fa'
 import logo from '../../../public/logo.png'
+import { getCurrentUser, logout } from '../../authService/authService'
+import { useEffect, useState } from 'react'
 
-export default function ngoNav({navActive, setNavActive}){
+export default function ngoNav({navActive, setNavActive, myNgo}){
+
+
+
     return(
         <div>
             <aside className="ngo-sidebar">
@@ -10,8 +15,8 @@ export default function ngoNav({navActive, setNavActive}){
                     <p>Civik Connect</p>
                 </div>
                 <div className="ngo-profile">
-                    <div className="ngo-avatar">HH</div>
-                    <strong>Helping Hands</strong>
+                    <div className="ngo-avatar">{myNgo?.name.charAt(0).toUpperCase()}</div>
+                    <strong>{myNgo?.name}</strong>
                     <span>NGO Dashboard</span>
                 </div>
                 <nav>
@@ -25,7 +30,9 @@ export default function ngoNav({navActive, setNavActive}){
                     onClick={()=>{setNavActive("ngoProf")}}
                     ><FaUser /> Profile</a>
                 </nav>
-                <a className="logout-link" href="/"><FaSignOutAlt /> Logout</a>
+                <a className="logout-link" 
+                onClick={()=>logout()}
+                ><FaSignOutAlt /> Logout</a>
             </aside>
         </div>
     )

@@ -8,6 +8,7 @@ import Issue from './pages/issue/Issue'
 import Landing from './pages/landing/Landing'
 import Mod from './pages/moderator/Mod'
 import Ngo from './pages/ngo/Ngo'
+import ProtectedRoute from './authService/ProtectedRoute'
 
 function App() {
   const { pathname } = useLocation()
@@ -20,10 +21,10 @@ function App() {
       <Routes>
         <Route path='/' element={<Landing/>}/>
         <Route path='/auth' element={<Auth/>}/>
-        <Route path='/citizen' element={<Citizen/>}/>
-        <Route path='/issue' element={<Issue/>}/>
-        <Route path='/ngo' element={<Ngo/>}/>
-        <Route path='/mod' element={<Mod/>}/>
+        <Route path='/citizen' element={<ProtectedRoute><Citizen/></ProtectedRoute>}/>
+        <Route path='/issue' element={<ProtectedRoute><Issue/></ProtectedRoute>}/>
+        <Route path='/ngo' element={<ProtectedRoute><Ngo/></ProtectedRoute>}/>
+        <Route path='/mod' element={<ProtectedRoute><Mod/></ProtectedRoute>}/>
         
       </Routes>
 
