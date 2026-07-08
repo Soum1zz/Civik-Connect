@@ -70,6 +70,29 @@
     box-sizing: border-box;
 }
 
+.issue-form .issue-back-btn {
+    width: fit-content;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0 12px;
+    border: 1px solid #dce5e0;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #078c42;
+    font-size: 14px;
+    font-weight: 800;
+    box-shadow: none;
+}
+
+.issue-form .issue-back-btn:hover {
+    border-color: #078c42;
+    background: #f0fbf5;
+    color: #078c42;
+}
+
 .form-heading h1 {
     margin: 0;
     color: #078c42;
@@ -85,7 +108,8 @@
     font-weight: 600;
 }
 
-.issue-form label {
+.issue-form label,
+.issue-field {
     display: grid;
     gap: 7px;
     color: #182235;
@@ -169,6 +193,7 @@
     background: #fbfdfc;
     color: #6b7280;
     text-align: center;
+    cursor: pointer;
 }
 
 .upload-box svg {
@@ -184,6 +209,67 @@
 .upload-box span {
     font-size: 11px;
     font-weight: 700;
+}
+
+.upload-box.disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+.image-input {
+    display: none;
+}
+
+.image-error {
+    margin: 0;
+    color: #c2410c;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.image-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+    gap: 10px;
+}
+
+.image-preview-card {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1px solid #dce5e0;
+    border-radius: 6px;
+    background: #eef4f0;
+}
+
+.image-preview-card img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.issue-form .remove-image-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 26px;
+    height: 26px;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(16, 24, 39, 0.82);
+    color: #ffffff;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.issue-form .remove-image-btn:hover {
+    border: 0;
+    background: #dc2626;
+    color: #ffffff;
 }
 
 .issue-form button {
@@ -205,6 +291,33 @@
     border: 1px solid #078c42;
     background: #f0f0f0;
     color: #079447;
+}
+
+.issue-form button:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+}
+
+.issue-form button .loader {
+    width: 22px;
+    padding: 4px;
+    margin: 0 auto;
+    background: #ffffff;
+}
+
+.issue-form button:hover .loader {
+    background: #079447;
+}
+
+.field-loader {
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+}
+
+.field-loader .loader {
+    width: 28px;
+    padding: 5px;
 }
 @media (max-width: 860px) {
     .issue-page {

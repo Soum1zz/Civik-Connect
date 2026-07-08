@@ -4,8 +4,11 @@ import com.soum.civikConnect.IssueCategory.entity.IssueCategory;
 import com.soum.civikConnect.IssueCategory.repo.IssueCategoryRepo;
 import com.soum.civikConnect.common.enums.IssueStatus;
 import com.soum.civikConnect.issue.dto.IssueReq;
+import com.soum.civikConnect.issue.dto.IssueRes;
 import com.soum.civikConnect.issue.entity.Issue;
 import com.soum.civikConnect.issue.repo.IssueRepo;
+import com.soum.civikConnect.issueImg.entity.IssueImg;
+import com.soum.civikConnect.issueImg.repo.IssueImgRepo;
 import com.soum.civikConnect.ngo.entity.Ngo;
 import com.soum.civikConnect.ngo.repo.NgoRepo;
 import com.soum.civikConnect.user.entity.User;
@@ -28,6 +31,10 @@ public class IssueService {
     UserRepo userRepo;
 
     @Autowired
+    IssueImgRepo imgRepo;
+
+
+    @Autowired
     IssueCategoryRepo issueCategoryRepo;
 
     @Autowired
@@ -35,9 +42,9 @@ public class IssueService {
 
     //create
     @Transactional
-    public void createIssue(IssueReq req){
+    public Long createIssue(IssueReq req, Long user_id) throws Exception{
 
-        User user= userRepo.findById(req.uid()).orElseThrow(()->new RuntimeException("User not found"));
+        User user= userRepo.findById(user_id).orElseThrow(()->new RuntimeException("User not found"));
         IssueCategory cat= issueCategoryRepo.findByName(req.category()).orElseThrow(()->new RuntimeException("Category not found"));
 
         Issue issue =Issue.builder()
@@ -54,7 +61,8 @@ public class IssueService {
 
                 .build();
 
-        issueRepo.save(issue);
+        Issue savedIssue= issueRepo.save(issue);
+        return savedIssue.getId();
 
     }
 
@@ -77,5 +85,44 @@ public class IssueService {
 
     public List<IssueCategory> getAllIssueCategory() {
         return issueCategoryRepo.findAll();
+    }
+
+    public IssueRes getIssue(Long issueId) {
+        Issue issue= issueRepo.findById(issueId).orElseThrow(()->new RuntimeException("Issue not found"));
+
+        return new IssueRes(
+                issue.getReporter().getUserId(),
+                issue.getId(),
+                issue.getTitle(),
+                issue.getDescription(),
+                issue.getCategory().toString(),
+                issue.getLongitude(),
+                issue.getLatitude(),
+                issue.getCity(),
+                issue.getState()
+        );
+    }
+
+    public List<String> getIssueImg(Long issueId) {
+        Issue issue= issueRepo.findById(issueId).orElseThrow(()->new RuntimeException("Issue not found"));
+
+        return imgRepo.findAllByIssue(issue).orElseThrow(()->new RuntimeException("Issue img not found"));
+    }
+
+    public void setIssueImg(Long userId, Long issueId, List<String> urls) {
+
+        Issue issue= issueRepo.findById(issueId).orElseThrow(()->new RuntimeException("Issue not found"));
+
+        if(!issue.getReporter().getUserId().equals(userId)){
+            throw new RuntimeException("You are not allowed to upload images.");
+        }
+
+        for (String url : urls) {
+            IssueImg issueImg = IssueImg.builder()
+                    .issue(issue)
+                    .imgUrl(url)
+                    .build();
+            imgRepo.save(issueImg);
+        }
     }
 }

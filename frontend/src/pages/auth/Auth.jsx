@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
 import {useNavigate} from 'react-router-dom'
-import { FaBuilding, FaEnvelope, FaEye, FaLeaf, FaLock, FaPhoneAlt, FaRegUser, FaUserTie } from 'react-icons/fa'
+import { FaArrowLeft, FaEye, FaRegUser, FaUserTie } from 'react-icons/fa'
 import '../../styles/Auth.css'
 import { register, login } from '../../api/authApi'
 import { getAllCategories } from '../../api/issueApi'
 import { ngoCreate } from '../../api/ngoApi'
 import logo from 'C:/civikConnect/frontend/public/logo.png'
+import Loader from '../../components/Loader/Loader'
 
 
 
@@ -22,6 +23,8 @@ export default function Auth() {
     const [selectedCategories, setSelectedCategories] = useState([])
     const [submitted, setSubmitted] = useState(false)
     const [isNgo, setIsNgo] = useState(false)
+    const [categoriesLoading, setCategoriesLoading] = useState(true)
+    const [loadingAction, setLoadingAction] = useState('')
     const passwordChecks = useMemo(() => ({
         length: passwordData.password.length >= 8,
         special: /[^A-Za-z0-9]/.test(passwordData.password),
@@ -50,6 +53,8 @@ export default function Auth() {
                 setCategories(res.data);
             } catch (err) {
                 console.log(err);
+            } finally {
+                setCategoriesLoading(false)
             }
         };
 
@@ -80,6 +85,8 @@ export default function Auth() {
             email: formData.get('email') || '',
             password: formData.get('password') || '',
         }
+        setLoadingAction('login')
+        try {
         const res = await login(payload);
 
         localStorage.setItem("token", res.data.token);
@@ -92,6 +99,11 @@ export default function Auth() {
             navigate("/citizen")
         if(localStorage.getItem("role")==='MODERATOR')
             navigate("/mod")
+        } catch (error) {
+            console.error('Login failed', error)
+        } finally {
+            setLoadingAction('')
+        }
 
         
     }
@@ -117,6 +129,7 @@ export default function Auth() {
         }
 
         try {
+            setLoadingAction('register')
 
             console.log('Submitting registration payload', payload)
             const res = await register(payload)
@@ -130,6 +143,8 @@ export default function Auth() {
             switchScreen('login')
         } catch (error) {
             console.error('Registration failed', error)
+        } finally {
+            setLoadingAction('')
         }
     }
 
@@ -141,8 +156,6 @@ export default function Auth() {
 
         const form = event.currentTarget
         const formData = new FormData(form)
-        const role = formData.get('role') || (isNgo ? 'ngo' : 'regular')
-
         const payload = {
             ngoId: localStorage.getItem("userId"),
             officialWebsite: formData.get('website') || '',
@@ -150,11 +163,11 @@ export default function Auth() {
             address: formData.get('address') || '',
             state: formData.get('state') || '',
             categoriesId: selectedCategories,
-            state: formData.get('state') || '',
 
         }
 
         try {
+            setLoadingAction('ngo')
 
             console.log('Submitting registration payload', payload)
             await ngoCreate(payload)
@@ -162,12 +175,17 @@ export default function Auth() {
             switchScreen('login')
         } catch (error) {
             console.error('Ngo Registration failed', error)
+        } finally {
+            setLoadingAction('')
         }
     }
 
     return (
         <main className="auth-page">
             <section className="auth-card">
+                <button className="auth-back-btn" type="button" onClick={() => navigate(-1)}>
+                    <FaArrowLeft /> Back
+                </button>
                 {screen === 'login' && (
                     <form className="auth-panel login-panel" onSubmit={handleAuthSubmit}>
                         <AuthBrand />
@@ -193,7 +211,9 @@ export default function Auth() {
                         </label>
 
                         <button className="text-link" type="button">Forgot Password?</button>
-                        <button className="auth-submit" type="submit">Log in</button>
+                        <button className="auth-submit" type="submit" disabled={loadingAction === 'login'}>
+                            {loadingAction === 'login' ? <Loader /> : 'Log in'}
+                        </button>
 
                         <p className="auth-switch">
                             Don't have an account? <button type="button" onClick={() => switchScreen('register')}>Register</button>
@@ -279,7 +299,9 @@ export default function Auth() {
                             </label>
                         </fieldset>
 
-                        <button className="auth-submit" type="submit">Continue</button>
+                        <button className="auth-submit" type="submit" disabled={loadingAction === 'register'}>
+                            {loadingAction === 'register' ? <Loader /> : 'Continue'}
+                        </button>
                         <p className="auth-switch">
                             Already have an account? <button type="button" onClick={()=> setScreen("login")}>Login</button>
                         </p>
@@ -301,9 +323,11 @@ export default function Auth() {
                         <div className="category-field">
                             <span>Categories</span>
                             <div className="category-grid">
-                                {categories.map((category) => (
+                                {categoriesLoading ? (
+                                    <div className="auth-field-loader"><Loader /></div>
+                                ) : categories.map((category) => (
                                     <button
-                                        className={selectedCategories.includes(category.name) ? 'selected' : ''}
+                                        className={selectedCategories.includes(category.id) ? 'selected' : ''}
                                         key={category.id}
                                         type="button"
                                         onClick={() => toggleCategory(category.id)}
@@ -331,7 +355,9 @@ export default function Auth() {
 
 
 
-                        <button className="auth-submit" type="submit">Submit</button>
+                        <button className="auth-submit" type="submit" disabled={loadingAction === 'ngo'}>
+                            {loadingAction === 'ngo' ? <Loader /> : 'Submit'}
+                        </button>
                     </form>
                 )}
             </section>

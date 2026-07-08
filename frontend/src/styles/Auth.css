@@ -47,6 +47,30 @@
     gap: 14px;
 }
 
+.auth-back-btn {
+    position: relative;
+    z-index: 2;
+    width: fit-content;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding: 0 12px;
+    border: 1px solid #dce5e0;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #078c42;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.auth-back-btn:hover {
+    border-color: #078c42;
+    background: #f0fbf5;
+}
+
 .login-panel {
     padding: 38px 12px 20px;
 }
@@ -180,6 +204,22 @@
     color: #078c42;
     background: #fff0f0;
     border: 1px solid #059447;
+}
+
+.auth-submit:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+}
+
+.auth-submit .loader {
+    width: 22px;
+    padding: 4px;
+    margin: 0 auto;
+    background: #ffffff;
+}
+
+.auth-submit:hover .loader {
+    background: #078c42;
 }
 
 .auth-switch {
@@ -318,6 +358,17 @@
 .category-grid button.selected {
     background: #0a9b48;
     color: #ffffff;
+}
+
+.auth-field-loader {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+}
+
+.auth-field-loader .loader {
+    width: 28px;
+    padding: 5px;
 }
 
 
