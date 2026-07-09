@@ -1,6 +1,7 @@
 package com.soum.civikConnect.issue.repo;
 
 import com.soum.civikConnect.issue.entity.Issue;
+import com.soum.civikConnect.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,4 +30,6 @@ public interface IssueRepo extends JpaRepository<Issue, Long> {
     );
 
     List<Issue> findByStatus(com.soum.civikConnect.common.enums.IssueStatus status);
+
+    List<Issue> findAllByReporter(User user);
 }

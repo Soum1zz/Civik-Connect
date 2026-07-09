@@ -1,9 +1,18 @@
 import api from "./axios";
 
+const token = localStorage.getItem("token");
+
 export const getAll = ()=>
     api.get("/user/all-user");
 
-
+export const getAllIssues = ()=>
+    api.get("/user/all-issue",
+        {
+            headers:{
+                Authorization: `Bearer ${token}` 
+            }
+        }
+    )
 
 export const createUser = (data)=>
     api.put("/user/create",data);

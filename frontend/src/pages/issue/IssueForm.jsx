@@ -9,7 +9,7 @@ import { getAllCategories, issueCreate, issueImgs } from "../../api/issueApi";
 import { getToken, isTokenExpired } from "../../authService/authService";
 import Loader from "../../components/Loader/Loader";
 
-export default function Issue() {
+export default function IssueForm() {
   const [position, setPosition] = useState([22.5726, 88.3639]);
   const [selectedImages, setSelectedImages] = useState([]);
   const [imageError, setImageError] = useState("");
@@ -205,13 +205,13 @@ export default function Issue() {
   };
 
   return (
-    <main className="issue-page">
+    <main className="issue-form-page">
       <section className="issue-form-wrap">
         <form
           className="issue-form"
           onSubmit={handleIssueSubmit}
         >
-          <button className="issue-back-btn" type="button" onClick={() => navigate(-1)}>
+          <button className="issue-form-back-btn" type="button" onClick={() => navigate(-1)}>
             <FaArrowLeft /> Back
           </button>
           <div className="form-heading">
@@ -279,7 +279,7 @@ export default function Issue() {
             placeholder="Enter state" />
           </label>
 
-          <div className="issue-field">
+          <div className="issue-form-field">
             Upload Images
             <input
               ref={fileInputRef}

@@ -94,12 +94,14 @@ public class IssueService {
                 issue.getReporter().getUserId(),
                 issue.getId(),
                 issue.getTitle(),
+                issue.getStatus().toString(),
                 issue.getDescription(),
                 issue.getCategory().toString(),
                 issue.getLongitude(),
                 issue.getLatitude(),
                 issue.getCity(),
-                issue.getState()
+                issue.getState(),
+                issue.getCreatedOn()
         );
     }
 
@@ -124,5 +126,34 @@ public class IssueService {
                     .build();
             imgRepo.save(issueImg);
         }
+    }
+
+    public List<IssueRes> getIssueByUser(Long userId) {
+        User user= userRepo.findById(userId).orElseThrow(()->new RuntimeException("User not found"));
+
+        List<Issue> issues =issueRepo.findAllByReporter(user);
+
+        List<IssueRes> issueRes = new ArrayList<>();
+
+        for (Issue issue : issues) {
+            IssueRes issueRes1= new IssueRes(
+                    issue.getReporter().getUserId(),
+                    issue.getId(),
+                    issue.getTitle(),
+                    issue.getStatus().toString(),
+                    issue.getDescription(),
+                    issue.getCategory().getName(),
+                    issue.getLongitude(),
+                    issue.getLatitude(),
+                    issue.getCity(),
+                    issue.getState(),
+                    issue.getCreatedOn()
+            );
+
+            issueRes.add(issueRes1);
+        }
+
+        return issueRes;
+
     }
 }

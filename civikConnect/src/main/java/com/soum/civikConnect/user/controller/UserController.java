@@ -1,6 +1,7 @@
 package com.soum.civikConnect.user.controller;
 
 import com.soum.civikConnect.config.security.UserPrincipal;
+import com.soum.civikConnect.issue.service.IssueService;
 import com.soum.civikConnect.user.dto.userReq;
 import com.soum.civikConnect.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,23 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private IssueService issueService;
+
     @GetMapping("/all-user")
     public ResponseEntity<?> getAllUser(){
         try{
             return new ResponseEntity<>(userService.getAllUser(),HttpStatus.OK);
 
+        }catch(Exception ex){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/all-issue")
+    public ResponseEntity<?> getAllIssue(@AuthenticationPrincipal UserPrincipal userPrincipal){
+        try{
+            return new ResponseEntity<> (issueService.getIssueByUser(userPrincipal.getUser().getUserId()),HttpStatus.OK);
         }catch(Exception ex){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -55,6 +68,8 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+
 
 
 

@@ -1,5 +1,9 @@
 import api from "./axios";
  const token = localStorage.getItem("token")
+const authHeaders = () => ({
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+});
+
 export const issueCreate = (data)=>
     api.put("/issue/create",data,{
         headers:{
@@ -20,3 +24,24 @@ export const updateIssue = (data)=>
 
 export const getAllCategories = ()=>
     api.get("/search/issue-categories");
+
+export const getIssueById = (issueId)=>
+    api.get(`/issue/${issueId}/get-issue`,{
+        headers: authHeaders(),
+    });
+
+export const getIssueImages = (issueId)=>
+    api.get(`/issue/${issueId}/get-issue-img`,{
+        headers: authHeaders(),
+    });
+
+export const getIssueComments = (issueId)=>
+    api.get(`/comment/${issueId}/all`,{
+        params: { iId: issueId },
+        headers: authHeaders(),
+    });
+
+export const createIssueComment = (data)=>
+    api.put("/comment/create",data,{
+        headers: authHeaders(),
+    });

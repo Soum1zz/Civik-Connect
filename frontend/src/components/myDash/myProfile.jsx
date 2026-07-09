@@ -12,25 +12,11 @@ import {
 } from "react-icons/fa";
 import "../../styles/Citizen.css";
 import { useEffect, useState } from "react";
-import { getCurrentUser } from "../../authService/authService";
-import { me } from "../../api/authApi";
 
 
 
-export default function MyProfile() {
-  const [user, setUser] = useState(null);
+export default function MyProfile({user}) {
 
-  useEffect(() => {
-    async function getme() {
-      try {
-        const res = await me();
-        setUser(res.data)
-      } catch (e) {
-        console.log(e);
-      }
-    }
-    getme();
-  }, []);
 
   return (
     <main className="profile-page citizen-profile-page">
