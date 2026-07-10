@@ -1,16 +1,19 @@
 import api from "./axios";
 
-const token = localStorage.getItem("token");
+const authHeaders = () => ({
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+});
 
 export const getAll = ()=>
     api.get("/user/all-user");
 
+export const getUserName = (uid)=>
+    api.get(`/search/${uid}/user-name`);
+
 export const getAllIssues = ()=>
     api.get("/user/all-issue",
         {
-            headers:{
-                Authorization: `Bearer ${token}` 
-            }
+            headers: authHeaders(),
         }
     )
 

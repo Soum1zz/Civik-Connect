@@ -11,12 +11,24 @@ import {
   FaUserFriends,
 } from "react-icons/fa";
 import "../../styles/Citizen.css";
-import { useEffect, useState } from "react";
+import Loader from "../Loader/Loader";
 
 
 
 export default function MyProfile({user}) {
 
+  if (!user) {
+    return (
+      <main className="profile-page citizen-profile-page">
+        <section className="profile-card">
+          <div className="dashboard-state profile-loading-state">
+            <Loader />
+            <span>Loading profile...</span>
+          </div>
+        </section>
+      </main>
+    );
+  }
 
   return (
     <main className="profile-page citizen-profile-page">

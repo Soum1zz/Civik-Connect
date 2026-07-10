@@ -20,6 +20,8 @@ public class SearchController {
     private NgoService ngoService;
     @Autowired
     private IssueService issueService;
+    @Autowired
+    private UserService userService;
     @GetMapping("/all-ngo")
     public ResponseEntity<List<Ngo>> getAllNgo(){
         try{
@@ -34,6 +36,14 @@ public class SearchController {
             return new ResponseEntity<>(ngoService.getIssueCats(ngoId), HttpStatus.OK);
 
         }catch(Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+    @GetMapping("/{uid}/user-name")
+    public ResponseEntity<?> getUserName(@PathVariable("uid") Long uid){
+        try{
+            return new ResponseEntity<>(userService.getUserName(uid),HttpStatus.OK);
+        }catch (Exception ex){
             return ResponseEntity.badRequest().build();
         }
     }

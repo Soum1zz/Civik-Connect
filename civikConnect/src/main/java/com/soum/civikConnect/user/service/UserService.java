@@ -100,5 +100,7 @@ public class UserService {
     }
 
 
-
+    public String getUserName(Long uid) {
+        return userRepo.findById(uid).orElseThrow(()-> new RuntimeException("User not found")).getUsername();
+    }
 }

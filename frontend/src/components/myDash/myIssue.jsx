@@ -3,6 +3,7 @@ import '../../styles/Citizen.css'
 import { FaLeaf, FaPlus } from 'react-icons/fa';
 import { getAllIssues } from '../../api/userApi';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../Loader/Loader';
 
 const statusClassMap = {
   OPEN: 'open',
@@ -58,7 +59,9 @@ export default function myIssues({user}) {
   const navigate= useNavigate()
 
   const [myIssues, setMyIssues]= useState([])
+  const [issuesLoading, setIssuesLoading] = useState(true);
   const statusMetrics = getStatusMetrics(myIssues);
+  const firstName = user?.name?.split(" ")[0] || "User";
 
   useEffect(()=>{
     const getMyIssues= async()=>{
@@ -67,10 +70,13 @@ export default function myIssues({user}) {
       const res = await getAllIssues();
 
       console.log(res.data);
-      setMyIssues(res.data);
+      setMyIssues(Array.isArray(res.data) ? res.data : []);
 
       }catch(e){
         console.log(e);
+        setMyIssues([]);
+      } finally {
+        setIssuesLoading(false);
       }
     }
 
@@ -83,7 +89,7 @@ export default function myIssues({user}) {
             <h1>Welcome Back</h1>
           </div>
           <div className="citizen-user">
-            <span>Hello, {user?.name.split(" ")[0]}</span>
+            <span>Hello, {firstName}</span>
             <div className="avatar">S</div>
           </div>
         </header>
@@ -117,26 +123,37 @@ export default function myIssues({user}) {
 
         <section className="activity-card">
           <h2>Your Issues</h2>
-          <div className="activity-list"
-          
-          >
-            {myIssues.map((issue) => (
-              <article key={issue.issueId}
-              onClick={navigate(`/issue-details/${issue.issueId}`)}
-              >
-                <div className={`activity-icon ${getStatusClass(issue.status)}`}>
-                  <FaLeaf />
-                </div>
-                <div>
-                  <h3>{issue.title}</h3>
-                </div>
-                <span className={`issue-chip ${getStatusClass(issue.status)}`}>
-                  {formatStatus(issue.status)}
-                </span>
-                <time>{formatIssueTime(issue.time)}</time>
-              </article>
-            ))}
-          </div>
+          {issuesLoading ? (
+            <div className="dashboard-state">
+              <Loader />
+              <span>Loading issues...</span>
+            </div>
+          ) : myIssues.length > 0 ? (
+            <div className="activity-list">
+              {myIssues.map((issue) => (
+                <article key={issue.issueId}
+                onClick={() => navigate(`/issue-details/${issue.issueId}`)}
+                >
+                  <div className={`activity-icon ${getStatusClass(issue.status)}`}>
+                    <FaLeaf />
+                  </div>
+                  <div>
+                    <h3>{issue.title}</h3>
+                  </div>
+                  <span className={`issue-chip ${getStatusClass(issue.status)}`}>
+                    {formatStatus(issue.status)}
+                  </span>
+                  <time>{formatIssueTime(issue.time)}</time>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="dashboard-state">
+              <FaLeaf />
+              <strong>No issues available</strong>
+              <span>Reported issues will appear here.</span>
+            </div>
+          )}
 
         </section>
     </div>

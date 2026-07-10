@@ -9,5 +9,5 @@ import java.util.Optional;
 
 
 public interface IssueImgRepo extends JpaRepository<IssueImg, Long> {
-    Optional<List<String>> findAllByIssue(Issue issue);
+    Optional<List<IssueImg>> findAllByIssue(Issue issue);
 }

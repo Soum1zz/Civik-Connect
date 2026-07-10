@@ -26,14 +26,10 @@ export const getAllCategories = ()=>
     api.get("/search/issue-categories");
 
 export const getIssueById = (issueId)=>
-    api.get(`/issue/${issueId}/get-issue`,{
-        headers: authHeaders(),
-    });
+    api.get(`/issue/${issueId}/get-issue`);
 
 export const getIssueImages = (issueId)=>
-    api.get(`/issue/${issueId}/get-issue-img`,{
-        headers: authHeaders(),
-    });
+    api.get(`/issue/${issueId}/get-issue-img`);
 
 export const getIssueComments = (issueId)=>
     api.get(`/comment/${issueId}/all`,{

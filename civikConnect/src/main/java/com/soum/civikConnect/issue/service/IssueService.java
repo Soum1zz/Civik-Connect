@@ -96,7 +96,7 @@ public class IssueService {
                 issue.getTitle(),
                 issue.getStatus().toString(),
                 issue.getDescription(),
-                issue.getCategory().toString(),
+                issue.getCategory().getName(),
                 issue.getLongitude(),
                 issue.getLatitude(),
                 issue.getCity(),
@@ -107,8 +107,12 @@ public class IssueService {
 
     public List<String> getIssueImg(Long issueId) {
         Issue issue= issueRepo.findById(issueId).orElseThrow(()->new RuntimeException("Issue not found"));
-
-        return imgRepo.findAllByIssue(issue).orElseThrow(()->new RuntimeException("Issue img not found"));
+        List <String> imgs= new ArrayList<>();
+        List<IssueImg> imgRes = imgRepo.findAllByIssue(issue).orElseThrow(()->new RuntimeException("Issue img not found"));
+        for(IssueImg img:imgRes){
+            imgs.add(img.getImgUrl());
+        }
+        return imgs;
     }
 
     public void setIssueImg(Long userId, Long issueId, List<String> urls) {
