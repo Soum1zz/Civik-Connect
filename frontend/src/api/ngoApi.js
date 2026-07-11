@@ -28,3 +28,8 @@ export const ngoShowInt = (data) =>
 export const ngoCat = (ngoId) => api.get(`/search/ngo/${ngoId}/all-categories`);
 
 export const ngoIssues = (ngoId) => api.get(`/ngo/${ngoId}/show-interest`);
+
+export const getIssuesByState = (state) =>
+  api.get("/search/issue/open-issues", {
+    params: { state },
+  });

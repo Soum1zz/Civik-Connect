@@ -1,11 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import '../../styles/Citizen.css'
 import logo from '/logo.png'
 import { FaListAlt, FaUser, FaSignOutAlt } from 'react-icons/fa';
 
 export default function MyNav({navActive, setNavActive }) {
+  const navigate = useNavigate()
   return (
-    <div className="citizen-sidebar">
-      <div className="dash-logo">
+    <div className="citizen-sidebar"
+    >
+      <div className="dash-logo"
+      onClick={()=>navigate("/")}
+
+      >
         <img src={logo} alt="Civik Connect logo" />
         <p>Civik Connect</p>
       </div>

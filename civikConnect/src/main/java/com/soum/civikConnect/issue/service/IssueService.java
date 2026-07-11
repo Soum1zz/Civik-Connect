@@ -15,6 +15,7 @@ import com.soum.civikConnect.user.entity.User;
 import com.soum.civikConnect.user.repo.UserRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -39,6 +40,24 @@ public class IssueService {
 
     @Autowired
     NgoRepo ngoRepo;
+
+    public IssueRes toIssueRes(Issue issue){
+        IssueRes issueRes1= new IssueRes(
+                issue.getReporter().getUserId(),
+                issue.getId(),
+                issue.getTitle(),
+                issue.getStatus().toString(),
+                issue.getDescription(),
+                issue.getCategory().getName(),
+                issue.getLongitude(),
+                issue.getLatitude(),
+                issue.getCity(),
+                issue.getState(),
+                issue.getCreatedOn()
+        );
+        return issueRes1;
+    }
+
 
     //create
     @Transactional
@@ -90,19 +109,7 @@ public class IssueService {
     public IssueRes getIssue(Long issueId) {
         Issue issue= issueRepo.findById(issueId).orElseThrow(()->new RuntimeException("Issue not found"));
 
-        return new IssueRes(
-                issue.getReporter().getUserId(),
-                issue.getId(),
-                issue.getTitle(),
-                issue.getStatus().toString(),
-                issue.getDescription(),
-                issue.getCategory().getName(),
-                issue.getLongitude(),
-                issue.getLatitude(),
-                issue.getCity(),
-                issue.getState(),
-                issue.getCreatedOn()
-        );
+        return toIssueRes(issue);
     }
 
     public List<String> getIssueImg(Long issueId) {
@@ -140,24 +147,26 @@ public class IssueService {
         List<IssueRes> issueRes = new ArrayList<>();
 
         for (Issue issue : issues) {
-            IssueRes issueRes1= new IssueRes(
-                    issue.getReporter().getUserId(),
-                    issue.getId(),
-                    issue.getTitle(),
-                    issue.getStatus().toString(),
-                    issue.getDescription(),
-                    issue.getCategory().getName(),
-                    issue.getLongitude(),
-                    issue.getLatitude(),
-                    issue.getCity(),
-                    issue.getState(),
-                    issue.getCreatedOn()
-            );
+            IssueRes issueRes1= toIssueRes(issue);
 
             issueRes.add(issueRes1);
         }
 
         return issueRes;
 
+    }
+
+    public List<IssueRes> getOpenIssues(String state) {
+
+
+        List<Issue> issues= issueRepo.getIssueByState(state);
+
+        List<IssueRes> issueRes = new ArrayList<>();
+
+        for (Issue issue : issues) {
+            IssueRes issueRes1=  toIssueRes(issue);
+            issueRes.add(issueRes1);
+        }
+        return issueRes;
     }
 }

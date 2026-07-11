@@ -53,6 +53,7 @@ public class SecurityConfig {
                                 "/search/**",
                                 "/issue/**",
                                 "/register",
+                                "/comment/**",
                                 "/user/**",
                                 "/auth/**",
                                 "/api/user/*/image",

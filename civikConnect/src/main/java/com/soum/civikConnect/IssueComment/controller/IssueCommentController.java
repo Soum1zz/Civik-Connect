@@ -20,7 +20,7 @@ public class IssueCommentController {
     private IssueCommentService issueCommentService;
 
     @GetMapping("/{iId}/all")
-    public ResponseEntity<?> getAllComment(@RequestParam("iId") Long iId){
+    public ResponseEntity<?> getAllComment(@PathVariable("iId") Long iId){
         try{
             return new ResponseEntity<>(issueCommentService.allComment(iId), HttpStatus.OK);
         }catch(Exception e){
@@ -32,15 +32,15 @@ public class IssueCommentController {
     @PutMapping("/create")
     public ResponseEntity<?> createComment(@RequestBody CommentReq req, @AuthenticationPrincipal UserPrincipal user){
         try{
-            issueCommentService.createComment(req, user.getUser().getUserId());
+            System.out.println(user);
+            return new ResponseEntity<>(issueCommentService.createComment(req, user.getUser().getUserId()),HttpStatus.OK);
         }catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
-        return  ResponseEntity.ok().build();
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateComment(CommentReq req,  @AuthenticationPrincipal UserPrincipal user){
+    public ResponseEntity<?> updateComment(@RequestBody CommentReq req,  @AuthenticationPrincipal UserPrincipal user){
         try{
             issueCommentService.updateComment(req, user.getUser().getUserId());
         }catch(Exception e){

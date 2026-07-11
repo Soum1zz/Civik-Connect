@@ -30,7 +30,7 @@ export default function Ngo() {
             <NgoNav navActive={navActive} setNavActive={setNavActive} myNgo={myNgo}/>
             {
                 navActive==="avIssues"&&
-            <NgoIssues/>
+            <NgoIssues myNgo={myNgo}/>
             }
             {/* {
                 navActive==="ngoNav"&&

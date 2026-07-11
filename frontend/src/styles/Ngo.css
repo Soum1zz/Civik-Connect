@@ -171,6 +171,14 @@
     padding: 12px;
     border: 1px solid #edf1ef;
     border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.ngo-issues article:hover {
+    border-color: #cfd6ff;
+    box-shadow: 0 10px 22px rgba(93, 111, 210, 0.08);
+    transform: translateY(-1px);
 }
 
 .issue-thumb {
@@ -184,6 +192,28 @@
     font-size: 25px;
 }
 
+.issue-thumb.open,
+.issue-thumb.review {
+    background: #eef2ff;
+    color: #3949ab;
+}
+
+.issue-thumb.verified,
+.issue-thumb.progress {
+    background: #e9f8ef;
+    color: #079447;
+}
+
+.issue-thumb.completed {
+    background: #dcfce7;
+    color: #078c42;
+}
+
+.issue-thumb.rejected {
+    background: #fff1f1;
+    color: #ef4444;
+}
+
 .ngo-issues h2 {
     margin: 0;
     color: #111827;
@@ -192,6 +222,9 @@
 }
 
 .ngo-issues p {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     margin: 5px 0;
     color: #6b7280;
     font-size: 12px;
@@ -208,6 +241,78 @@
     color: #7b8494;
     font-size: 12px;
     font-weight: 700;
+}
+
+.ngo-issue-status {
+    min-width: 98px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 900;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.ngo-issue-status.open {
+    background: #dcfce7;
+    color: #078c42;
+}
+
+.ngo-issue-status.review {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+.ngo-issue-status.verified {
+    background: #e0f2fe;
+    color: #0284c7;
+}
+
+.ngo-issue-status.progress {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.ngo-issue-status.completed {
+    background: #dcfce7;
+    color: #078c42;
+}
+
+.ngo-issue-status.rejected {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.ngo-list-state {
+    min-height: 180px;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 10px;
+    color: #667085;
+    text-align: center;
+}
+
+.ngo-list-state .loader {
+    width: 42px;
+    padding: 7px;
+}
+
+.ngo-list-state > svg {
+    color: #8aa197;
+    font-size: 30px;
+}
+
+.ngo-list-state strong {
+    color: #182235;
+    font-size: 17px;
+    font-weight: 900;
+}
+
+.ngo-list-state span {
+    color: #667085;
+    font-size: 14px;
+    font-weight: 800;
 }
 
 .ngo-issues button {

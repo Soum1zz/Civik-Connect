@@ -2,6 +2,7 @@ package com.soum.civikConnect.common.controller;
 
 import com.soum.civikConnect.IssueCategory.entity.IssueCategory;
 import com.soum.civikConnect.config.security.UserPrincipal;
+import com.soum.civikConnect.issue.dto.IssueRes;
 import com.soum.civikConnect.issue.service.IssueService;
 import com.soum.civikConnect.ngo.entity.Ngo;
 import com.soum.civikConnect.ngo.service.NgoService;
@@ -62,6 +63,15 @@ public class SearchController {
     public ResponseEntity<List<Ngo>> searchNgo(@RequestParam String search){
         try{
             return new ResponseEntity<>(ngoService.searchNgo(search), HttpStatus.OK);
+        }catch(Exception ex){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/issue/open-issues")
+    public ResponseEntity<List<IssueRes>> getOpenIssues(@RequestParam String state){
+        try{
+            return new ResponseEntity<>(issueService.getOpenIssues(state), HttpStatus.OK);
         }catch(Exception ex){
             return ResponseEntity.badRequest().build();
         }

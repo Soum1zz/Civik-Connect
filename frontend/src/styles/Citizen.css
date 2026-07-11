@@ -19,6 +19,7 @@
 }
 
 .dash-logo {
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -200,7 +201,8 @@
 
 .activity-card {
     padding: 24px 26px 26px;
-    overflow: hidden;
+    max-height: 60vh;
+    overflow-y: scroll;
 }
 
 .activity-list {

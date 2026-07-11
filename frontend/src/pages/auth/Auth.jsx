@@ -8,6 +8,45 @@ import { ngoCreate } from "../../api/ngoApi";
 import logo from "C:/civikConnect/frontend/public/logo.png";
 import Loader from "../../components/Loader/Loader";
 
+const indianStates = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+  "Andaman and Nicobar Islands",
+  "Chandigarh",
+  "Dadra and Nagar Haveli and Daman and Diu",
+  "Delhi",
+  "Jammu and Kashmir",
+  "Ladakh",
+  "Lakshadweep",
+  "Puducherry",
+];
+
 export default function Auth() {
   const navigate = useNavigate();
   const [screen, setScreen] = useState("login");
@@ -156,7 +195,7 @@ export default function Auth() {
       officialWebsite: formData.get("website") || "",
       description: formData.get("description") || "",
       address: formData.get("address") || "",
-      state: formData.get("state") || "",
+      State: formData.get("state") || "",
       categoriesId: selectedCategories,
     };
 
@@ -281,7 +320,7 @@ export default function Auth() {
               <div className="auth-input">
                 <input
                   name="password"
-                  type={isShow?"password":""}
+                  type={isShow ? "password" : ""}
                   placeholder="Create a password"
                   value={passwordData.password}
                   onChange={handlePasswordChange}
@@ -410,7 +449,16 @@ export default function Auth() {
 
             <label>
               State
-              <input name="state" placeholder="Enter state" />
+              <select defaultValue="" name="state">
+                <option value="state" disabled>
+                  Select state
+                </option>
+                {indianStates.map((state) => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
+              </select>
             </label>
 
             <label>

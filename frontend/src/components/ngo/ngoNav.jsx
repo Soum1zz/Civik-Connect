@@ -2,9 +2,10 @@ import { FaBell, FaCheckCircle, FaClipboardList, FaHome, FaListAlt, FaSearch, Fa
 import logo from '../../../public/logo.png'
 import { getCurrentUser, logout } from '../../authService/authService'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function ngoNav({navActive, setNavActive, myNgo}){
-
+        const navigate= useNavigate();
 
 
     return(
@@ -31,7 +32,9 @@ export default function ngoNav({navActive, setNavActive, myNgo}){
                     ><FaUser /> Profile</a>
                 </nav>
                 <a className="logout-link" 
-                onClick={()=>logout()}
+                onClick={()=>{
+                    navigate("/auth")
+                    logout()}}
                 ><FaSignOutAlt /> Logout</a>
             </aside>
         </div>

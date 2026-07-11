@@ -9,6 +9,45 @@ import { getAllCategories, issueCreate, issueImgs } from "../../api/issueApi";
 import { getToken, isTokenExpired } from "../../authService/authService";
 import Loader from "../../components/Loader/Loader";
 
+const indianStates = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+  "Andaman and Nicobar Islands",
+  "Chandigarh",
+  "Dadra and Nagar Haveli and Daman and Diu",
+  "Delhi",
+  "Jammu and Kashmir",
+  "Ladakh",
+  "Lakshadweep",
+  "Puducherry",
+];
+
 export default function IssueForm() {
   const [position, setPosition] = useState([22.5726, 88.3639]);
   const [selectedImages, setSelectedImages] = useState([]);
@@ -122,7 +161,7 @@ export default function IssueForm() {
     if (file) {
             const data = new FormData();
             data.append("file", file);
-            data.append("upload_preset", "Mercato");
+            data.append("upload_preset", "Civik_Connect");
             data.append("cloud_name", "dp5zhfxsl");
 
             try {
@@ -274,9 +313,16 @@ export default function IssueForm() {
 
           <label >
             State
-            <input
-            name="state"
-            placeholder="Enter state" />
+            <select defaultValue="" name="state">
+              <option value="" disabled>
+                Select state
+              </option>
+              {indianStates.map((state) => (
+                <option key={state} value={state}>
+                  {state}
+                </option>
+              ))}
+            </select>
           </label>
 
           <div className="issue-form-field">

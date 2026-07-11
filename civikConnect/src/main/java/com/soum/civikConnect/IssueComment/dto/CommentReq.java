@@ -8,8 +8,6 @@ import java.time.LocalDateTime;
 public record CommentReq(
         Long iId,
 
-        Long uId,
-
         String message
         ) {
 }

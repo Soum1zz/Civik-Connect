@@ -275,7 +275,7 @@
 }
 
 .issue-detail-page {
-    min-height: 100vh;
+    max-height: 100vh;
     display: grid;
     place-items: start center;
     padding: 24px 16px;
@@ -288,6 +288,7 @@
 .issue-detail-shell {
     position: relative;
     width: min(100%, 1120px);
+    max-height: 95vh;
     display: grid;
     grid-template-columns: minmax(0, 1fr) 360px;
     gap: 28px;
@@ -304,7 +305,11 @@
 .issue-detail-sidebar {
     min-width: 0;
 }
+.issue-detail-content{
+    max-height: 85vh;
+    overflow-y: scroll;
 
+}
 .issue-detail-loader {
     width: min(100%, 420px);
     min-height: 260px;
@@ -552,7 +557,6 @@
 .issue-thumb-list button:hover {
     border-color: #079447;
 }
-
 .issue-copy-block {
     margin-top: 26px;
 }
@@ -623,6 +627,7 @@
 }
 
 .issue-detail-sidebar {
+
     display: grid;
     gap: 24px;
     align-content: start;
@@ -635,7 +640,6 @@
     background: #ffffff;
     box-shadow: 0 10px 24px rgba(15, 46, 32, 0.04);
 }
-
 .issue-timeline {
     display: grid;
     gap: 22px;
@@ -676,7 +680,7 @@
     font-size: 14px;
     font-weight: 900;
 }
-
+.comment-attach-btn
 .issue-timeline-item.active strong {
     color: #111827;
 }
@@ -696,6 +700,8 @@
 }
 
 .issue-comments-list {
+    max-height: 48vh;
+    overflow-y: scroll;
     display: grid;
     gap: 22px;
 }
@@ -704,6 +710,73 @@
     display: grid;
     grid-template-columns: 36px 1fr;
     gap: 12px;
+    padding: 12px;
+    border: 1px solid #edf1ef;
+    border-radius: 8px;
+    background: #ffffff;
+}
+
+.issue-comment.moderator {
+    border-color: #bfdbfe;
+    background: #f8fbff;
+}
+
+.issue-comment.ngo {
+    border-color: #bbf7d0;
+    background: #f7fef9;
+}
+
+.issue-comment.citizen {
+    border-color: #e5e7eb;
+    background: #ffffff;
+}
+
+.issue-comment.moderator .issue-comment-avatar {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.issue-comment.ngo .issue-comment-avatar {
+    background: #dcfce7;
+    color: #078c42;
+}
+
+.issue-comment.citizen .issue-comment-avatar {
+    background: #f1f5f9;
+    color: #43516e;
+}
+
+.issue-comment-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.issue-comment-heading span {
+    flex: 0 0 auto;
+    padding: 5px 8px;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #43516e;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.issue-comment.moderator .issue-comment-heading span {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.issue-comment.ngo .issue-comment-heading span {
+    background: #dcfce7;
+    color: #078c42;
+}
+
+.issue-comment.citizen .issue-comment-heading span {
+    background: #f1f5f9;
+    color: #43516e;
 }
 
 .issue-comment p {
@@ -714,13 +787,27 @@
     line-height: 1.5;
 }
 
+.issue-comment-images {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.issue-comment-images img {
+    width: 100%;
+    aspect-ratio: 1;
+    display: block;
+    object-fit: cover;
+    border-radius: 7px;
+    border: 1px solid #e1e8e4;
+}
+
 .issue-comment-form {
-    position: absolute;
-    right: 20px;
-    bottom: 16px;
+
     left: 20px;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 104px;
+    grid-template-columns: 236px 30px 30px;
     gap: 14px;
     padding-top: 16px;
     border-top: 1px solid #edf1ef;
@@ -749,6 +836,10 @@
     font: 700 14px/1.3 system-ui, "Segoe UI", sans-serif;
 }
 
+.comment-image-input {
+    display: none;
+}
+
 .issue-comment-form button {
     height: 48px;
     display: inline-flex;
@@ -757,16 +848,65 @@
     gap: 9px;
     border: 0;
     border-radius: 7px;
-    background: #079447;
-    color: #ffffff;
-    font-size: 14px;
+    background: transparent;
+    color:  #079447;;
+    font-size: 20px;
     font-weight: 900;
     cursor: pointer;
+}
+
+.issue-comment-form .comment-attach-btn {
+    font-size: 20px;
+    background: #ffffff;
+    color: #43516e;
+}
+
+.issue-comment-form .comment-attach-btn:hover {
+    border-color: #079447;
+    color: #079447;
 }
 
 .issue-comment-form button:disabled {
     cursor: not-allowed;
     opacity: 0.68;
+}
+
+.comment-image-preview-list {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.comment-image-preview {
+    position: relative;
+    width: 74px;
+    height: 74px;
+    overflow: hidden;
+    border: 1px solid #dce5e0;
+    border-radius: 8px;
+    background: #eef4f0;
+}
+
+.comment-image-preview img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.comment-image-preview button {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(16, 24, 39, 0.82);
+    color: #ffffff;
+    font-size: 12px;
 }
 
 .issue-detail-loading {
