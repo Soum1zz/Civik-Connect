@@ -5,11 +5,14 @@ import NgoNav from '../../components/ngo/ngoNav'
 import { useEffect, useState } from 'react'
 import NgoProfile from '../../components/ngo/ngoProfile'
 import { getmyngo } from '../../api/ngoApi'
+import { useNavigate } from 'react-router-dom'
+import { getCurrentUser } from '../../authService/authService'
 
 export default function Ngo() {
 
     const [myNgo, setMyNgo] = useState()
-
+    const navigate = useNavigate();
+    const role = getCurrentUser().role;
     useEffect(()=>{
 
             async function getngo(){
@@ -25,6 +28,11 @@ export default function Ngo() {
     },[])
 
     const [navActive, setNavActive]= useState("avIssues")
+
+    if(role !== "NGO"){
+      navigate("/")
+      return;
+    }
     return (
         <main className="ngo-page">
             <NgoNav navActive={navActive} setNavActive={setNavActive} myNgo={myNgo}/>

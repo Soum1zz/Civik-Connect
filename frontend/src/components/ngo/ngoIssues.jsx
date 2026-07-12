@@ -1,6 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaClipboardList, FaLeaf, FaMapMarkerAlt, FaSearch } from "react-icons/fa";
+import {
+  FaClipboardList,
+  FaLeaf,
+  FaMapMarkerAlt,
+  FaSearch,
+} from "react-icons/fa";
 import { getIssuesByState } from "../../api/ngoApi";
 import Loader from "../Loader/Loader";
 import { getAllCategories } from "../../api/issueApi";
@@ -29,7 +34,10 @@ function formatIssueTime(value) {
   const createdDate = new Date(value);
   if (Number.isNaN(createdDate.getTime())) return value;
 
-  const diffDays = Math.max(0, Math.floor((Date.now() - createdDate.getTime()) / 86400000));
+  const diffDays = Math.max(
+    0,
+    Math.floor((Date.now() - createdDate.getTime()) / 86400000),
+  );
   if (diffDays === 0) return "Today";
   if (diffDays === 1) return "1 day ago";
   return `${diffDays} days ago`;
@@ -39,11 +47,14 @@ export default function NgoIssues({ myNgo }) {
   const navigate = useNavigate();
   const ngoState = myNgo?.state || myNgo?.State;
   const [issues, setIssues] = useState([]);
+  const [selectedIssues, setSelectedIssues] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
   const [categoryFilter, setCategoryFilter] = useState("All Categories");
   const [statusFilter, setStatusFilter] = useState("All Status");
   const [searchTerm, setSearchTerm] = useState("");
+
+
 
   useEffect(() => {
     let isMounted = true;
@@ -73,6 +84,7 @@ export default function NgoIssues({ myNgo }) {
       setLoading(true);
       try {
         const res = await getIssuesByState(ngoState);
+        console.log(res)
         if (isMounted) {
           setIssues(Array.isArray(res.data) ? res.data : []);
         }
@@ -95,7 +107,8 @@ export default function NgoIssues({ myNgo }) {
 
     return issues.filter((issue) => {
       const matchesCategory =
-        categoryFilter === "All Categories" || issue.category === categoryFilter;
+        categoryFilter === "All Categories" ||
+        issue.category === categoryFilter;
       const matchesStatus =
         statusFilter === "All Status" || issue.status === statusFilter;
       const matchesSearch =
@@ -146,7 +159,6 @@ export default function NgoIssues({ myNgo }) {
               onChange={(event) => setStatusFilter(event.target.value)}
             >
               <option>All Status</option>
-              <option>OPEN</option>
               <option>UNDER_REVIEW</option>
               <option>VERIFIED</option>
               <option>IN_PROGRESS</option>
@@ -192,11 +204,14 @@ export default function NgoIssues({ myNgo }) {
                 <div>
                   <h2>{issue.title}</h2>
                   <p>
-                    <FaMapMarkerAlt /> {[issue.city, issue.state].filter(Boolean).join(", ")}
+                    <FaMapMarkerAlt />{" "}
+                    {[issue.city, issue.state].filter(Boolean).join(", ")}
                   </p>
                   <strong>{issue.category}</strong>
                 </div>
-                <span className={`ngo-issue-status ${getStatusClass(issue.status)}`}>
+                <span
+                  className={`ngo-issue-status ${getStatusClass(issue.status)}`}
+                >
                   {formatStatus(issue.status)}
                 </span>
                 <time>{formatIssueTime(issue.time)}</time>
@@ -207,7 +222,9 @@ export default function NgoIssues({ myNgo }) {
           <div className="ngo-list-state">
             <FaClipboardList />
             <strong>No issues available</strong>
-            <span>No matching issues were found in {ngoState || "your state"}.</span>
+            <span>
+              No matching issues were found in {ngoState || "your state"}.
+            </span>
           </div>
         )}
       </section>

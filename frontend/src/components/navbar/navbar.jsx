@@ -1,25 +1,76 @@
 
+import { useEffect, useState } from 'react'
 import logo from 'C:/civikConnect/frontend/public/logo.png'
-import { FaRegUser } from 'react-icons/fa'
+import { FaDoorClosed, FaRegUser, FaUser } from 'react-icons/fa'
+import { MdLogout } from "react-icons/md";
+
+import { getCurrentUser, logout } from '../../authService/authService'
+import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
+    const user = getCurrentUser();
+    console.log(user);
+    const role = user?.role;
+
+    const navigate = useNavigate();
+    
     return (
         <header className="landing-nav">
-            <div className="nav-logo">
+            <div className="nav-logo"
+            >
                 <img src={logo} alt="Civik Connect"
+                onClick={()=>navigate("/")}
                 />
             </div>
 
             <nav className="nav-links" aria-label="Main navigation">
-                <a className="active" href="#home">Home</a>
+                <a className="active" 
+                onClick={()=>navigate("/")}
+                >Home</a>
                 <a href="#ngos">NGOs</a>
             </nav>
 
             <div className="nav-actions">
                 <a className='auth-btn' href="/auth">
-                    <FaRegUser />
-                    Log In
+                    {
+                    user?
+                    (
+                            <div
+                            className='auth-btn'
+                            onClick={()=>{
+                                logout();
+                            }}>
+                                <MdLogout/>
+                                Log Out
+                            </div>
+                            
+                    ):
+                    (   
+                        <div
+                        className='auth-btn'
+                        onClick={()=>navigate("/auth")}
+                        >
+                            <FaRegUser />
+                            Log In  
+                        </div>
+                        
+                    )
+                    }
                 </a>
+                {
+                    user&&
+                    <div
+                            onClick={()=>{
+                                if(role === "MODERATOR") navigate("/mod")
+                                if(role === "NGO") navigate("/ngo")
+                                if(role === "REGULAR") navigate("/citizen")
+
+                            }}
+                            className='profile-btn'
+                            >
+                                <FaUser/>
+                            </div>
+                }
             </div>
         </header>
     )

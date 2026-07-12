@@ -1,8 +1,11 @@
 package com.soum.civikConnect.moderator.services;
 
 import com.soum.civikConnect.common.enums.IssueStatus;
+import com.soum.civikConnect.issue.dto.IssueRes;
 import com.soum.civikConnect.issue.entity.Issue;
 import com.soum.civikConnect.issue.repo.IssueRepo;
+import com.soum.civikConnect.issue.service.IssueService;
+import com.soum.civikConnect.ngo.dto.ngoRes;
 import com.soum.civikConnect.ngo.entity.Ngo;
 import com.soum.civikConnect.ngo.repo.NgoRepo;
 import com.soum.civikConnect.user.entity.User;
@@ -13,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,6 +27,8 @@ public class moderatorService {
     private IssueRepo issueRepo;
     @Autowired
     private NgoRepo ngoRepo;
+    @Autowired
+    private IssueService issueService;
 
     //verify issue
     @Transactional
@@ -102,9 +108,32 @@ public class moderatorService {
     }
 
     //fetch all issues that are yet to verify
-    public List<Issue> findAllNotVerifiedIssues(){
+    public List<IssueRes> findAllNotVerifiedIssues(){
         List<Issue> issues= issueRepo.findByStatus(IssueStatus.UNDER_REVIEW);
-        return issues;
+        List<IssueRes> issueRes = new ArrayList<>();
+        for (Issue issue : issues) {
+            issueRes.add(issueService.toIssueRes(issue));
+        }
+        return issueRes;
+    }
+
+    public List<ngoRes> findAllNotVerifiedNgos(){
+        List<Ngo> ngos = ngoRepo.findAllNotVerified();
+        List<ngoRes> ngoResList = new ArrayList<>();
+        for (Ngo ngo : ngos) {
+            ngoResList.add(new ngoRes(
+                    ngo.getUser().getUsername(),
+                    ngo.getUser().getEmail(),
+                    ngo.getUser().getPhoneNumber(),
+                    ngo.getNgoId(),
+                    ngo.getOfficialWebsite(),
+                    ngo.getDescription(),
+                    ngo.getAddress(),
+                    ngo.getState(),
+                    ngo.isVerified()
+            ));
+        }
+        return ngoResList;
     }
 
 

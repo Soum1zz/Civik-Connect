@@ -7,6 +7,7 @@ import { getAllCategories } from "../../api/issueApi";
 import { ngoCreate } from "../../api/ngoApi";
 import logo from "C:/civikConnect/frontend/public/logo.png";
 import Loader from "../../components/Loader/Loader";
+import { getCurrentUser } from "../../authService/authService";
 
 const indianStates = [
   "Andhra Pradesh",
@@ -212,7 +213,11 @@ export default function Auth() {
       setLoadingAction("");
     }
   };
-
+  if(getCurrentUser()){ 
+    console.log(getCurrentUser())
+    navigate("/");
+    return;
+    }
   return (
     <main className="auth-page">
       <section className="auth-card">

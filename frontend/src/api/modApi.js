@@ -1,25 +1,32 @@
 import api from "./axios";
 
-const verifyIssue= ()=>
-    api.put(`/issue/${iId}/verify`);
+const authHeaders = () => ({
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+});
 
-const resolveIssue= ()=>
-    api.put(`/issue/${iId}/verify`);
+export const verifyIssue = (iId) =>
+    api.put(`/mod/issue/${iId}/verify`, {}, { headers: authHeaders() });
 
-const rejectIssue= ()=>
-    api.put(`/issue/${iId}/verify`);
+export const resolveIssue = (iId) =>
+    api.put(`/mod/issue/${iId}/resolve`, {}, { headers: authHeaders() });
 
-const assignIssue= (data)=>
-    api.put(`/issue/assign`,data);
+export const rejectIssue = (iId) =>
+    api.put(`/mod/issue/${iId}/reject`, {}, { headers: authHeaders() });
 
-const nonverifiedIssue= ()=>
-    api.get(`/issue/not-verified`);
+export const assignIssue = (data) =>
+    api.put(`/mod/issue/assign`, data, { headers: authHeaders() });
 
-const banUser= ()=>
-    api.put(`/user/${uId}/ban`);
+export const nonverifiedIssue = () =>
+    api.get(`/mod/issue/not-verified`, { headers: authHeaders() });
 
-const unbanUser= ()=>
-    api.put(`/user/${uId}/unban`);
+export const banUser = (uId) =>
+    api.put(`/mod/user/${uId}/ban`, {}, { headers: authHeaders() });
 
-const verifyNgo= ()=>
-    api.put(`/ngo/${ngoId}/verify`);
+export const unbanUser = (uId) =>
+    api.put(`/mod/user/${uId}/unban`, {}, { headers: authHeaders() });
+
+export const verifyNgo = (ngoId) =>
+    api.put(`/mod/ngo/${ngoId}/verify`, {}, { headers: authHeaders() });
+
+export const nonverifiedNgo = () =>
+    api.get(`/mod/ngo/not-verified`, { headers: authHeaders() });

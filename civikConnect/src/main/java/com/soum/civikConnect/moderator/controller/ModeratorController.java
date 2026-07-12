@@ -2,13 +2,16 @@ package com.soum.civikConnect.moderator.controller;
 
 
 import com.soum.civikConnect.issue.dto.IssueAssReq;
+import com.soum.civikConnect.issue.dto.IssueRes;
 import com.soum.civikConnect.moderator.services.moderatorService;
+import com.soum.civikConnect.ngo.dto.ngoRes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/mod")
@@ -85,9 +88,18 @@ public class ModeratorController {
         return  ResponseEntity.ok().build();
     }
     @GetMapping("/issue/not-verified")
-    public ResponseEntity<?> getNotVeriIssues() {
+    public ResponseEntity<List<IssueRes>> getNotVeriIssues() {
         try{
             return new ResponseEntity<>(moderatorService.findAllNotVerifiedIssues(), HttpStatus.OK);
+        }catch(Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping("/ngo/not-verified")
+    public ResponseEntity<List<ngoRes>> getNotVerifiedNgos() {
+        try{
+            return new ResponseEntity<>(moderatorService.findAllNotVerifiedNgos(), HttpStatus.OK);
         }catch(Exception e){
             return ResponseEntity.badRequest().build();
         }

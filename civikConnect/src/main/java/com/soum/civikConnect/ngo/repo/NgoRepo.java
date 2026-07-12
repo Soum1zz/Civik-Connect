@@ -14,6 +14,9 @@ public interface NgoRepo extends JpaRepository<Ngo,Long> {
 
     Optional<Ngo> findByUserUserId(Long uId);
 
+    @Query("SELECT n FROM Ngo n WHERE n.isVerified = false")
+    List<Ngo> findAllNotVerified();
+
     @Query(
             """
                 SELECT DISTINCT n FROM Ngo n

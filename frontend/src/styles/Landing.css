@@ -28,7 +28,7 @@ a {
     grid-template-columns: minmax(210px, 1fr) auto minmax(160px, 1fr);
     align-items: center;
     gap: 24px;
-    padding: 0 86px;
+    padding: 0 46px;
     background: rgba(255, 255, 255, 1);
     border-bottom: 1px solid #dfe8e2;
     box-shadow: 0 3px 14px rgba(7, 37, 28, 0.08);
@@ -87,6 +87,8 @@ a {
 .nav-actions {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    gap: 25px;
 }
 
 .auth-btn {
@@ -100,10 +102,15 @@ a {
     border-radius: 6px;
     background: #ffffff;
     color: #057b37;
-    font-size: 14px;
-    font-weight: 800;
+    font-size: 16px;
+    font-weight: 700;
     text-decoration: none;
     cursor: pointer;
+}
+
+.profile-btn{
+    color: #00863b;
+    font-size: 25px;
 }
 
 .landing-page {
