@@ -83,7 +83,8 @@ public class NgoService {
     //Ngo det upd
     @Transactional
     public ngoRes updateNgo(Long uid, ngoReq req){
-        Ngo ngo = ngoRepo.findByUserUserId(uid).orElseThrow(()->new RuntimeException("ngo not found"));
+        User user = userRepo.findById(req.ngoId()).orElseThrow(()->new RuntimeException("user not found"));
+        Ngo ngo = ngoRepo.findByUser(user).orElseThrow(()->new RuntimeException("ngo not found"));
         ngo.setDescription(req.description());
         ngo.setAddress(req.address());
         ngo.setOfficialWebsite(req.officialWebsite());
@@ -94,7 +95,9 @@ public class NgoService {
     //interest
     @Transactional
     public void issueInterest(Long uId, Long issueId){
-        Ngo ngo= ngoRepo.findByUserUserId(uId).orElseThrow(()->new RuntimeException("ngo not found"));
+
+        User user = userRepo.findById(uId).orElseThrow(()->new RuntimeException("user not found"));
+        Ngo ngo= ngoRepo.findByUser(user).orElseThrow(()->new RuntimeException("ngo not found"));
         Issue issue= issueRepo.findById(issueId).orElseThrow(()->new RuntimeException("issue not found"));
 
 
@@ -139,7 +142,7 @@ public class NgoService {
     }
 
     public ngoRes getNgoById(User user) {
-        Ngo ngo= ngoRepo.findByUserUserId(user.getUserId()).orElseThrow(()->new RuntimeException("ngo not found"));
+        Ngo ngo= ngoRepo.findByUser(user).orElseThrow(()->new RuntimeException("ngo not found"));
         return toNgoRes(ngo);
     }
 

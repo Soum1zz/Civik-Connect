@@ -4,6 +4,7 @@ import ModNgoVerify from '../../components/mod/modNgoVerify'
 import ModNav from '../../components/mod/modNav'
 import ModProfile from '../../components/mod/modProfile'
 import ModVerifyIssue from '../../components/mod/modVerifyIssue'
+import ModIssueReq from '../../components/mod/modIssueReq'
 
 import { useEffect, useState } from 'react'
 import { me } from '../../api/authApi'
@@ -45,6 +46,10 @@ export default function Mod() {
             {
                 navActive==="modnreq"&&
                 <ModNgoVerify/>
+            }
+            {
+                navActive==="modireq"&&
+                <ModIssueReq/>
             }
             {
                 navActive==="modProf"&&

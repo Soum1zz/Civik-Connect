@@ -37,18 +37,19 @@ public class NgoController {
         }
     }
 
-    @PutMapping("/ngo/{ngoId}/show-interest")
+    @PutMapping("/issue/{iId}/show-interest")
     public ResponseEntity<?> showInterest(@AuthenticationPrincipal UserPrincipal principal, @PathVariable("iId") Long iId) {
         try{
             ngoService.issueInterest(principal.getUser().getUserId(), iId);
         }catch(Exception e){
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
         return  ResponseEntity.ok().build();
     }
 
 
-    @GetMapping("/ngo/{ngoId}/all-issues")
+    @GetMapping("/{ngoId}/all-issues")
     public ResponseEntity<?> findNgoIssues(@PathVariable("ngoId") Long ngoId) {
         try{
             return new ResponseEntity<>(ngoService.findAllIssues(ngoId), HttpStatus.OK);

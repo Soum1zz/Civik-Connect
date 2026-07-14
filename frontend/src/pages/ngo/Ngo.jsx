@@ -4,6 +4,7 @@ import NgoIssues from '../../components/ngo/ngoIssues'
 import NgoNav from '../../components/ngo/ngoNav'
 import { useEffect, useState } from 'react'
 import NgoProfile from '../../components/ngo/ngoProfile'
+import NgoMyIssues from '../../components/ngo/ngoMyIssues'
 import { getmyngo } from '../../api/ngoApi'
 import { useNavigate } from 'react-router-dom'
 import { getCurrentUser } from '../../authService/authService'
@@ -40,10 +41,10 @@ export default function Ngo() {
                 navActive==="avIssues"&&
             <NgoIssues myNgo={myNgo}/>
             }
-            {/* {
-                navActive==="ngoNav"&&
-            <NgoIssues/>
-            } */}
+            {
+                navActive==="myIssues"&&
+            <NgoMyIssues myNgo={myNgo}/>
+            }
             {
                 navActive==="ngoProf"&& 
             <NgoProfile myNgo={myNgo}/>

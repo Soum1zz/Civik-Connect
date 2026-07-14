@@ -4,9 +4,10 @@ import {
   FaClipboardList,
   FaLeaf,
   FaMapMarkerAlt,
+  FaRegHandPointer,
   FaSearch,
 } from "react-icons/fa";
-import { getIssuesByState } from "../../api/ngoApi";
+import { getIssuesByState, ngoShowInt } from "../../api/ngoApi";
 import Loader from "../Loader/Loader";
 import { getAllCategories } from "../../api/issueApi";
 
@@ -47,9 +48,11 @@ export default function NgoIssues({ myNgo }) {
   const navigate = useNavigate();
   const ngoState = myNgo?.state || myNgo?.State;
   const [issues, setIssues] = useState([]);
-  const [selectedIssues, setSelectedIssues] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [requestVersion, setRequestVersion] = useState(0);
+  const [actionIssueId, setActionIssueId] = useState(null);
+  const [message, setMessage] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("All Categories");
   const [statusFilter, setStatusFilter] = useState("All Status");
   const [searchTerm, setSearchTerm] = useState("");
@@ -101,6 +104,41 @@ export default function NgoIssues({ myNgo }) {
       isMounted = false;
     };
   }, [ngoState]);
+
+  const interestIssueIds = useMemo(() => {
+    if (!myNgo?.ngoId) return [];
+    try {
+      const requests = JSON.parse(localStorage.getItem("ngoIssueRequests") || "[]");
+      return requests
+        .filter((request) => request.ngoId === myNgo.ngoId)
+        .map((request) => request.issueId);
+    } catch (e) {
+      console.log(e);
+      return [];
+    }
+  }, [myNgo?.ngoId, requestVersion]);
+
+
+
+  const handleShowInterest = async (event, issue) => {
+    event.stopPropagation();
+    const issueId = issue?.issueId;
+
+    if (!issueId || !myNgo?.ngoId || interestIssueIds.includes(issueId)) return;
+
+    setActionIssueId(issueId);
+    setMessage("");
+
+    try {
+      console.log(localStorage.getItem("token"))
+      await ngoShowInt(issueId);
+      setMessage("Interest sent to moderator.");
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setActionIssueId(null);
+    }
+  };
 
   const filteredIssues = useMemo(() => {
     const query = searchTerm.trim().toLowerCase();
@@ -179,6 +217,8 @@ export default function NgoIssues({ myNgo }) {
           </label>
         </div>
 
+        {message && <div className="ngo-action-message">{message}</div>}
+
         {loading ? (
           <div className="ngo-list-state">
             <Loader />
@@ -215,6 +255,23 @@ export default function NgoIssues({ myNgo }) {
                   {formatStatus(issue.status)}
                 </span>
                 <time>{formatIssueTime(issue.time)}</time>
+                {
+                  issue.status === "VERIFIED" &&
+                  <button
+                  type="button"
+                  className="ngo-interest-btn"
+                  disabled={
+                    actionIssueId === issue.issueId ||
+                    interestIssueIds.includes(issue.issueId)
+                  }
+                  onClick={(event) => handleShowInterest(event, issue)}
+                >
+                  {interestIssueIds.includes(issue.issueId)
+                    ? "Interested"
+                    : actionIssueId === issue.issueId
+                      ? "Sending..."
+                      : "Show Interest"}
+                </button>}
               </article>
             ))}
           </div>

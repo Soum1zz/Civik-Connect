@@ -54,6 +54,7 @@ public class SecurityConfig {
                                 "/issue/**",
                                 "/register",
                                 "/comment/**",
+                                "/ngo/**",
                                 "/mod/**",
                                 "/user/**",
                                 "/auth/**",

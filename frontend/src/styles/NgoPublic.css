@@ -1,0 +1,343 @@
+.ngo-public-page {
+  min-height: calc(100vh - 78px);
+  background: #ffffff;
+  color: #111827;
+}
+.ngo-public-hero {
+  min-height: 205px;
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) minmax(360px, 0.72fr);
+  align-items: center;
+  gap: 28px;
+  padding: 42px 88px 28px;
+  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 100%);
+  border-bottom: 1px solid #eef3f8;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.ngo-public-hero h1 {
+  margin: 0;
+  color: #0a2457;
+  font-size: 42px;
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.ngo-public-hero p {
+  margin-top: 18px;
+  color: #42506a;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.ngo-public-hero-art {
+  height: 220px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.ngo-public-hero-art img {
+  width: min(520px, 100%);
+  height: 180px;
+  object-fit: cover;
+  object-position: right 58%;
+  border-radius: 0;
+}
+
+.ngo-public-toolbar {
+  display: grid;
+  grid-template-columns: minmax(320px, 1fr) auto;
+  align-items: center;
+  gap: 28px;
+  padding: 34px 88px 28px;
+  box-sizing: border-box;
+}
+
+.ngo-public-search {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 18px;
+  border: 1px solid #dce5ef;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #34445d;
+  box-shadow: 0 9px 22px rgba(16, 24, 40, 0.04);
+  box-sizing: border-box;
+}
+
+.ngo-public-search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  color: #1d2939;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ngo-public-search input::placeholder {
+  color: #7b879d;
+}
+
+.ngo-public-selects {
+  display: flex;
+  gap: 30px;
+}
+
+.ngo-public-selects select {
+  min-width: 178px;
+  height: 50px;
+  padding: 0 42px 0 17px;
+  border: 1px solid #dce5ef;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1f2a44;
+  font-size: 14px;
+  font-weight: 700;
+  outline: 0;
+  box-shadow: 0 9px 22px rgba(16, 24, 40, 0.04);
+}
+
+.ngo-public-note {
+  width: fit-content;
+  margin: -8px 88px 18px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: #fff8e6;
+  color: #8a5a00;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ngo-public-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  gap: 28px 22px;
+  padding: 10px 88px 34px;
+  box-sizing: border-box;
+}
+
+.ngo-public-card {
+  min-height: 310px;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 24px 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.06);
+  box-sizing: border-box;
+}
+
+.ngo-public-card-heading {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr) 18px;
+  align-items: center;
+  gap: 13px;
+  min-height: 78px;
+}
+
+.ngo-public-card h2 {
+  margin: 0;
+  color: #0a2457;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.ngo-public-icon {
+  width: 70px;
+  height: 70px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #d7edff;
+  border-radius: 50%;
+  color: #168fdb;
+  background: #f7fbff;
+  font-size: 36px;
+}
+
+.ngo-public-verified {
+  color: #2f80ed;
+  font-size: 16px;
+}
+
+.ngo-public-description {
+  min-height: 82px;
+  margin-top: 24px;
+  color: #334155;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.ngo-public-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: #53627a;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.ngo-public-location svg {
+  flex: 0 0 auto;
+  color: #1fa153;
+  font-size: 14px;
+}
+
+.ngo-public-founded {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid #e5ebf2;
+  color: #101828;
+}
+
+.ngo-public-founded span,
+.ngo-public-founded strong {
+  display: block;
+}
+
+.ngo-public-founded span {
+  color: #475569;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ngo-public-founded strong {
+  margin-top: 3px;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.ngo-public-state {
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #53627a;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.ngo-public-state svg {
+  color: #159a58;
+  font-size: 34px;
+}
+
+.ngo-public-state strong {
+  color: #0a2457;
+  font-size: 20px;
+}
+
+.ngo-public-pagination {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 88px 30px;
+}
+
+.ngo-public-pagination button {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dce5ef;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.ngo-public-pagination button.active {
+  border-color: #b8e3c9;
+  background: #e9f8ee;
+  color: #138247;
+}
+
+.ngo-public-pagination button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media (max-width: 1180px) {
+  .ngo-public-hero,
+  .ngo-public-toolbar,
+  .ngo-public-grid,
+  .ngo-public-pagination {
+    padding-inline: 36px;
+  }
+
+  .ngo-public-grid {
+    grid-template-columns: repeat(3, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 880px) {
+  .ngo-public-hero {
+    grid-template-columns: 1fr;
+    padding-top: 34px;
+  }
+
+  .ngo-public-hero-art {
+    justify-content: flex-start;
+  }
+
+  .ngo-public-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .ngo-public-selects {
+    gap: 14px;
+  }
+
+  .ngo-public-selects select {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ngo-public-grid {
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 580px) {
+  .ngo-public-hero,
+  .ngo-public-toolbar,
+  .ngo-public-grid,
+  .ngo-public-pagination {
+    padding-inline: 20px;
+  }
+
+  .ngo-public-hero h1 {
+    font-size: 34px;
+  }
+
+  .ngo-public-selects,
+  .ngo-public-pagination {
+    flex-wrap: wrap;
+  }
+
+  .ngo-public-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ngo-public-card {
+    min-height: auto;
+  }
+}

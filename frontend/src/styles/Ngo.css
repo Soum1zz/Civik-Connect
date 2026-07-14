@@ -165,7 +165,7 @@
 
 .ngo-issues article {
     display: grid;
-    grid-template-columns: 74px 1fr auto auto;
+    grid-template-columns: 74px 1fr auto auto auto;
     align-items: center;
     gap: 16px;
     padding: 12px;
@@ -328,6 +328,74 @@
     cursor: pointer;
 }
 
+.ngo-issues button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.ngo-interest-btn {
+    min-width: 132px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.ngo-action-message {
+    margin: -24px 0 24px;
+    padding: 12px 14px;
+    border: 1px solid #cfe6d9;
+    border-radius: 7px;
+    background: #eefaf3;
+    color: #263796;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.ngo-title-row-split {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.ngo-my-search {
+    width: min(100%, 320px);
+    flex: 0 0 auto;
+}
+
+.ngo-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 26px 0 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e3e9e6;
+}
+
+.ngo-section-heading strong {
+    color: #182235;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+.ngo-section-heading span {
+    min-width: 32px;
+    height: 28px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 999px;
+    background: #e9f8ef;
+    color: #263796;
+    font-size: 13px;
+    font-weight: 900;
+}
+
+.ngo-list-state.compact {
+    min-height: 120px;
+}
+
 .ngo-pagination {
     display: flex;
     justify-content: center;
@@ -356,8 +424,17 @@
     }
 
     .issue-filters,
+    .ngo-title-row-split,
     .ngo-issues article {
         grid-template-columns: 1fr;
+    }
+
+    .ngo-title-row-split {
+        display: grid;
+    }
+
+    .ngo-my-search {
+        width: 100%;
     }
 }
 

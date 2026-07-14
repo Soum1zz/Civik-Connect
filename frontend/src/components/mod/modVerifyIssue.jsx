@@ -154,7 +154,7 @@ export default function ModVerifyIssue() {
 
                 <div className="mod-verify-content"
                               onClick={() => navigate(`/issue-details/${issueId}`)}
->
+                  >
                   <div className="mod-verify-title-row">
                     <div>
                       <h2>{issue.title || "Untitled issue"}</h2>

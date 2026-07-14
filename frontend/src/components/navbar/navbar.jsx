@@ -1,11 +1,10 @@
 
-import { useEffect, useState } from 'react'
 import logo from 'C:/civikConnect/frontend/public/logo.png'
-import { FaDoorClosed, FaRegUser, FaUser } from 'react-icons/fa'
+import { FaRegUser, FaUser } from 'react-icons/fa'
 import { MdLogout } from "react-icons/md";
 
 import { getCurrentUser, logout } from '../../authService/authService'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
     const user = getCurrentUser();
@@ -13,6 +12,7 @@ export default function Navbar() {
     const role = user?.role;
 
     const navigate = useNavigate();
+    const { pathname } = useLocation();
     
     return (
         <header className="landing-nav">
@@ -24,10 +24,12 @@ export default function Navbar() {
             </div>
 
             <nav className="nav-links" aria-label="Main navigation">
-                <a className="active" 
+                <a className={pathname === "/" ? "active" : ""}
                 onClick={()=>navigate("/")}
                 >Home</a>
-                <a href="#ngos">NGOs</a>
+                <a className={pathname === "/public-ngo" ? "active" : ""}
+                onClick={()=>navigate("/public-ngo")}
+                >NGOs</a>
             </nav>
 
             <div className="nav-actions">

@@ -1,11 +1,16 @@
 import { FaChartBar, FaClipboardCheck, FaClipboardList, FaHome, FaRegEye, FaSignOutAlt, FaUser, FaUsers } from 'react-icons/fa'
 import logo from '/logo.png'
+import { useNavigate } from 'react-router-dom'
+import { logout } from '../../authService/authService'
 
 
 export default function modNav({navActive,setNavActive}){
+    const navigate = useNavigate()
     return(
             <div className="mod-sidebar">
-                <div className="dash-logo">
+                <div className="dash-logo"
+                onClick={()=> navigate("/")}
+                >
                     <img src={logo}/>
                     <p>Civik Connect</p>
                 </div>
@@ -22,7 +27,12 @@ export default function modNav({navActive,setNavActive}){
                     onClick={() => setNavActive('modProf')}><FaUser /> My Profile</a>
                 </nav>
 
-                <a className="mod-logout" href="/"><FaSignOutAlt /> Logout</a>
+                <a className="mod-logout" 
+                onClick={()=>{
+                    logout();
+                    
+                }}
+                ><FaSignOutAlt /> Logout</a>
             </div>
     )
 }

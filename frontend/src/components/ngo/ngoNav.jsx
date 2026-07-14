@@ -33,7 +33,6 @@ export default function ngoNav({navActive, setNavActive, myNgo}){
                 </nav>
                 <a className="logout-link" 
                 onClick={()=>{
-                    navigate("/auth")
                     logout()}}
                 ><FaSignOutAlt /> Logout</a>
             </aside>
