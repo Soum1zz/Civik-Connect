@@ -7,7 +7,7 @@ import {
   FaRegHandPointer,
   FaSearch,
 } from "react-icons/fa";
-import { getIssuesByState, ngoShowInt } from "../../api/ngoApi";
+import { getIssuesByState, getNgoInt, ngoShowInt } from "../../api/ngoApi";
 import Loader from "../Loader/Loader";
 import { getAllCategories } from "../../api/issueApi";
 
@@ -44,7 +44,7 @@ function formatIssueTime(value) {
   return `${diffDays} days ago`;
 }
 
-export default function NgoIssues({ myNgo }) {
+export default function NgoIssues({ myNgo, ngoIntIds }) {
   const navigate = useNavigate();
   const ngoState = myNgo?.state || myNgo?.State;
   const [issues, setIssues] = useState([]);
@@ -98,12 +98,13 @@ export default function NgoIssues({ myNgo }) {
         if (isMounted) setLoading(false);
       }
     };
-
     loadIssues();
     return () => {
       isMounted = false;
     };
   }, [ngoState]);
+
+
 
   const interestIssueIds = useMemo(() => {
     if (!myNgo?.ngoId) return [];
@@ -262,11 +263,11 @@ export default function NgoIssues({ myNgo }) {
                   className="ngo-interest-btn"
                   disabled={
                     actionIssueId === issue.issueId ||
-                    interestIssueIds.includes(issue.issueId)
+                    ngoIntIds.includes(issue.issueId)
                   }
                   onClick={(event) => handleShowInterest(event, issue)}
                 >
-                  {interestIssueIds.includes(issue.issueId)
+                  {ngoIntIds.includes(issue.issueId)
                     ? "Interested"
                     : actionIssueId === issue.issueId
                       ? "Sending..."

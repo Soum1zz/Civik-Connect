@@ -151,4 +151,14 @@ public class NgoService {
         Set<IssueCategory> ngoCats= ngo.getIssueCategory();
         return ngoCats;
     }
+
+    public List<Long> findAllInterests(User user) {
+        Ngo ngo= ngoRepo.findByUser(user).orElseThrow(()->new RuntimeException("ngo not found"));
+        List<IssueInterest> interests = issueInterestRepo.findByNgo(ngo).orElseThrow(()->new RuntimeException("interest not found"));
+        List<Long> issueIds = new ArrayList<>();
+        for(IssueInterest interest:interests){
+            issueIds.add(interest.getIssue().getId());
+        }
+        return issueIds;
+    }
 }

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/Citizen.css";
 import logo from "/logo.png";
 import { FaListAlt, FaUser, FaSignOutAlt } from "react-icons/fa";
+import { logout } from "../../authService/authService";
 
 export default function MyNav({ navActive, setNavActive }) {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ export default function MyNav({ navActive, setNavActive }) {
         h
         onClick={() => {
           logout();
+          navigate("/");
         }}
       >
         <FaSignOutAlt /> Logout

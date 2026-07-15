@@ -5,12 +5,12 @@ import NgoNav from '../../components/ngo/ngoNav'
 import { useEffect, useState } from 'react'
 import NgoProfile from '../../components/ngo/ngoProfile'
 import NgoMyIssues from '../../components/ngo/ngoMyIssues'
-import { getmyngo } from '../../api/ngoApi'
+import { getmyngo, getNgoInt } from '../../api/ngoApi'
 import { useNavigate } from 'react-router-dom'
 import { getCurrentUser } from '../../authService/authService'
 
 export default function Ngo() {
-
+    const [ngoIntIds, setNgoIntIds]= useState([])
     const [myNgo, setMyNgo] = useState()
     const navigate = useNavigate();
     const role = getCurrentUser().role;
@@ -27,6 +27,19 @@ export default function Ngo() {
             }
             getngo();
     },[])
+      useEffect(()=>{
+            async function getIntIds() {
+            try{
+                const res= await getNgoInt();
+                setNgoIntIds(res.data);
+                console.log(res.data);
+            }catch(e){
+                console.log(e)
+            }
+        }
+        getIntIds();
+    
+      },[])
 
     const [navActive, setNavActive]= useState("avIssues")
 
@@ -39,11 +52,11 @@ export default function Ngo() {
             <NgoNav navActive={navActive} setNavActive={setNavActive} myNgo={myNgo}/>
             {
                 navActive==="avIssues"&&
-            <NgoIssues myNgo={myNgo}/>
+            <NgoIssues myNgo={myNgo} ngoIntIds={ngoIntIds}/>
             }
             {
                 navActive==="myIssues"&&
-            <NgoMyIssues myNgo={myNgo}/>
+            <NgoMyIssues myNgo={myNgo} ngoIntIds={ngoIntIds}/>
             }
             {
                 navActive==="ngoProf"&& 

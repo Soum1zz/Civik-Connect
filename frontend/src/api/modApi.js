@@ -13,6 +13,9 @@ export const resolveIssue = (iId) =>
 export const rejectIssue = (iId) =>
     api.put(`/mod/issue/${iId}/reject`, {}, { headers: authHeaders() });
 
+export const getAllReq = () =>
+    api.get(`/mod/all-interests`, {}, { headers: authHeaders() });
+
 export const assignIssue = (data) =>
     api.put(`/mod/issue/assign`, data, { headers: authHeaders() });
 

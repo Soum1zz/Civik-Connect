@@ -8,13 +8,7 @@ import {
   FaUsers,
 } from "react-icons/fa";
 
-const stats = [
-  { label: "Pending Issues", value: "18" },
-  { label: "Pending NGOs", value: "7" },
-  { label: "Awaiting Assignment", value: "12" },
-  { label: "Awaiting Closure", value: "24" },
-];
-export default function modAnalytics() {
+export default function modAnalytics({issues, ngos, requests}) {
   return (
     <div className="mod-main">
       <header className="mod-header">
@@ -23,12 +17,18 @@ export default function modAnalytics() {
       </header>
 
       <section className="mod-stats" aria-label="Moderator overview">
-        {stats.map((item) => (
-          <article key={item.label}>
-            <span>{item.label}</span>
-            <strong>{item.value}</strong>
+          <article >
+            <span>Pending NGO verifications</span>
+            <strong>{ngos.length}</strong>
           </article>
-        ))}
+          <article >
+            <span>Pending Issue verifications</span>
+            <strong>{issues.length}</strong>
+          </article>
+          <article >
+            <span>Pending assignment requests</span>
+            <strong>{requests.length}</strong>
+          </article>
       </section>
 
     </div>

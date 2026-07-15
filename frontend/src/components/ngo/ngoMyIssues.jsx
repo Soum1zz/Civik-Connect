@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import { ngoIssues } from "../../api/ngoApi";
 import Loader from "../Loader/Loader";
+import { getIssueById } from "../../api/issueApi";
 
 function formatIssueDate(value) {
   if (!value) return "Recently";
@@ -22,17 +23,9 @@ function formatIssueDate(value) {
   });
 }
 
-function getLocalRequests(ngoId) {
-  try {
-    const requests = JSON.parse(localStorage.getItem("ngoIssueRequests") || "[]");
-    return requests.filter((request) => request.ngoId === ngoId);
-  } catch (e) {
-    console.log(e);
-    return [];
-  }
-}
 
-export default function NgoMyIssues({ myNgo }) {
+
+export default function NgoMyIssues({ myNgo, ngoIntIds }) {
   const navigate = useNavigate();
   const [assignedIssues, setAssignedIssues] = useState([]);
   const [interestRequests, setInterestRequests] = useState([]);
@@ -47,7 +40,6 @@ export default function NgoMyIssues({ myNgo }) {
 
     const loadMyIssues = async () => {
       setLoading(true);
-      setInterestRequests(getLocalRequests(ngoId));
 
       try {
         const res = await ngoIssues(ngoId);
@@ -68,6 +60,25 @@ export default function NgoMyIssues({ myNgo }) {
       isMounted = false;
     };
   }, [ngoId]);
+
+  useEffect(()=>{
+    const loadNgoInt =async ()=>{
+      const resData=await Promise.all(
+          ngoIntIds.map(
+            id=> getIssueById(id)
+          )
+      );
+
+      const data = resData.map(res=> res.data);
+
+      console.log(data);
+
+      setInterestRequests(data)
+
+    }
+    loadNgoInt();
+
+  }, [ngoIntIds])
 
   const visibleAssigned = useMemo(() => {
     const query = searchTerm.trim().toLowerCase();

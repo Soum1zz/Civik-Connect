@@ -19,6 +19,7 @@ public class NgoController {
     @Autowired
     private NgoService ngoService;
 
+
     @GetMapping("/my-ngo")
     public ResponseEntity<?> getNgoById(@AuthenticationPrincipal UserPrincipal principal ){
         try{
@@ -46,6 +47,16 @@ public class NgoController {
             return ResponseEntity.badRequest().build();
         }
         return  ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/issue/all-interests")
+    public ResponseEntity<?> getAllInterests(@AuthenticationPrincipal UserPrincipal principal){
+        try{
+            return new ResponseEntity<>(ngoService.findAllInterests(principal.getUser()) , HttpStatus.OK);
+        }catch(Exception ex){
+            ex.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 

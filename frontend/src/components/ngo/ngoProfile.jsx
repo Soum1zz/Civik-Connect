@@ -22,6 +22,8 @@ export default function NgoProfile({myNgo}) {
         }
     }
 
+    
+
     getCats();
 
 }, [ngoId]);
@@ -89,11 +91,7 @@ export default function NgoProfile({myNgo}) {
                     </div>
                 </section>
 
-                <div className="ngo-profile-metrics">
-                    <div><FaBuilding /><strong>12</strong><span>Active Projects</span></div>
-                    <div><FaUsers /><strong>248</strong><span>Registered</span></div>
-                    <div><FaLeaf /><strong>1,850</strong><span>Overall Impact</span></div>
-                </div>
+               
             </section>
         </main>
     )

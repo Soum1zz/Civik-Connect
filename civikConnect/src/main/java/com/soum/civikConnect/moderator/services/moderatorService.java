@@ -1,10 +1,14 @@
 package com.soum.civikConnect.moderator.services;
 
+import com.soum.civikConnect.IssueCategory.entity.IssueCategory;
+import com.soum.civikConnect.IssueInterest.entity.IssueInterest;
+import com.soum.civikConnect.IssueInterest.repo.IssueInterestRepo;
 import com.soum.civikConnect.common.enums.IssueStatus;
 import com.soum.civikConnect.issue.dto.IssueRes;
 import com.soum.civikConnect.issue.entity.Issue;
 import com.soum.civikConnect.issue.repo.IssueRepo;
 import com.soum.civikConnect.issue.service.IssueService;
+import com.soum.civikConnect.moderator.dto.issueIntRes;
 import com.soum.civikConnect.ngo.dto.ngoRes;
 import com.soum.civikConnect.ngo.entity.Ngo;
 import com.soum.civikConnect.ngo.repo.NgoRepo;
@@ -29,6 +33,8 @@ public class moderatorService {
     private NgoRepo ngoRepo;
     @Autowired
     private IssueService issueService;
+    @Autowired
+    private IssueInterestRepo issueInterestRepo;
 
     //verify issue
     @Transactional
@@ -136,6 +142,30 @@ public class moderatorService {
         return ngoResList;
     }
 
+    public List<issueIntRes> getAllInterests() {
+
+        List<IssueInterest> interests= issueInterestRepo.findAll();
+
+        List<issueIntRes> issueIntRes = new ArrayList<>();
+
+        for (IssueInterest issueInterest : interests) {
+            List<String> cats= new ArrayList<>();
+
+            for(IssueCategory cat:issueInterest.getNgo().getIssueCategory()){
+                cats.add(cat.getName());
+            }
+
+            issueIntRes.add(new issueIntRes(
+                    issueInterest.getIssue().getId(),
+                    issueInterest.getIssue().getTitle(),
+                    issueInterest.getNgo().getNgoId(),
+                    issueInterest.getNgo().getUser().getUsername(),
+                    issueInterest.getNgo().getState(),
+                    issueInterest.getAppliedAt()
+            ));
+        }
+        return issueIntRes;
+    }
 
 
     //platform analytics

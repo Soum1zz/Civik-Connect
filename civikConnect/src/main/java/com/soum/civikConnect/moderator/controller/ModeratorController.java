@@ -60,6 +60,15 @@ public class ModeratorController {
         return  ResponseEntity.ok().build();
     }
 
+    @GetMapping("/all-interests")
+    public ResponseEntity<?> getAllInterests() {
+        try {
+            return new ResponseEntity<>(moderatorService.getAllInterests() , HttpStatus.OK);
+        }catch(Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @PutMapping("/user/{uId}/ban")
     public ResponseEntity<?> banUser(@PathVariable("uId") Long uId) {
         try{

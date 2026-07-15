@@ -47,9 +47,9 @@
 }
 
 
-
 .ngo-sidebar a,
 .logout-link {
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -627,6 +627,11 @@
     margin-bottom: 7px;
     color: #263796;
     font-weight: 900;
+}
+
+.ngo-profile-info{
+    max-height: 60vh;
+    overflow-y: scroll;
 }
 
 .ngo-profile-info h4 {

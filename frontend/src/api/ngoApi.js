@@ -40,6 +40,15 @@ export const ngoIssues = (ngoId) =>
     },
   });
 
+  export const getNgoInt=()=>
+    api.get(`/ngo/issue/all-interests`,
+      {
+        headers:{
+          Authorization: `Bearer ${token}`,
+        }
+      }
+
+    );
 export const getIssuesByState = (state) =>
   api.get("/search/issue/open-issues", {
     params: { state },

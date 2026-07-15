@@ -33,39 +33,15 @@ function formatIssueDate(value) {
   });
 }
 
-export default function ModVerifyIssue() {
-  const [issues, setIssues] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function ModVerifyIssue({issues}) {
+  const [loading, setLoading] = useState(false);
   const [actionId, setActionId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState("");
 
   const navigate = useNavigate()
 
-  useEffect(() => {
-    let isMounted = true;
 
-    const loadIssues = async () => {
-      try {
-        const res = await nonverifiedIssue();
-        if (isMounted) setIssues(Array.isArray(res.data) ? res.data : []);
-      } catch (e) {
-        console.log(e);
-        if (isMounted) {
-          setIssues([]);
-          setError("Could not load issues waiting for verification.");
-        }
-      } finally {
-        if (isMounted) setLoading(false);
-      }
-    };
-
-    loadIssues();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   const filteredIssues = useMemo(() => {
     const query = searchTerm.trim().toLowerCase();

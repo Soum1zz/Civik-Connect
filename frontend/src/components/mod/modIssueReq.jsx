@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   FaCheck,
   FaClipboardList,
@@ -8,7 +8,7 @@ import {
   FaTimes,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { assignIssue } from "../../api/modApi";
+import { assignIssue, getAllReq } from "../../api/modApi";
 
 function formatRequestDate(value) {
   if (!value) return "Recently";
@@ -23,38 +23,25 @@ function formatRequestDate(value) {
   });
 }
 
-function readRequests() {
-  try {
-    return JSON.parse(localStorage.getItem("ngoIssueRequests") || "[]");
-  } catch (e) {
-    console.log(e);
-    return [];
-  }
-}
-
 function writeRequests(requests) {
   localStorage.setItem("ngoIssueRequests", JSON.stringify(requests));
 }
 
-export default function ModIssueReq() {
+export default function ModIssueReq({requests}) {
   const navigate = useNavigate();
-  const [requests, setRequests] = useState(() => readRequests());
   const [actionId, setActionId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState("");
 
+
+
   const filteredRequests = useMemo(() => {
+    console.log("req: ", requests);
     const query = searchTerm.trim().toLowerCase();
     if (!query) return requests;
 
     return requests.filter((request) =>
-      [
-        request.title,
-        request.ngoName,
-        request.city,
-        request.state,
-        request.category,
-      ]
+      [request.title, request.ngoName, request.state, request.category]
         .filter(Boolean)
         .some((value) => value.toLowerCase().includes(query)),
     );
@@ -71,7 +58,7 @@ export default function ModIssueReq() {
   const handleAssign = async (request) => {
     if (!request?.issueId || !request?.ngoId) return;
 
-    setActionId(request.id);
+    setActionId(request.issueId);
     setError("");
 
     try {
@@ -79,7 +66,9 @@ export default function ModIssueReq() {
       removeRequest(request.id);
     } catch (e) {
       console.log(e);
-      setError("Could not assign this issue. It may already be assigned or not verified yet.");
+      setError(
+        "Could not assign this issue. It may already be assigned or not verified yet.",
+      );
     } finally {
       setActionId(null);
     }
@@ -117,7 +106,7 @@ export default function ModIssueReq() {
       {filteredRequests.length > 0 ? (
         <section className="mod-verify-list">
           {filteredRequests.map((request) => {
-            const busy = actionId === request.id;
+            const busy = actionId === request.issueeId;
 
             return (
               <article className="mod-verify-card" key={request.id}>
@@ -141,21 +130,17 @@ export default function ModIssueReq() {
                       <h2>{request.title || "Untitled issue"}</h2>
                       <p>
                         <FaMapMarkerAlt />
-                        {[request.city, request.state].filter(Boolean).join(", ") ||
-                          "Location unavailable"}
+                        {[request.city, request.state]
+                          .filter(Boolean)
+                          .join(", ") || "Location unavailable"}
                       </p>
                     </div>
-                    <span className="mod-review-pill">INTERESTED</span>
                   </div>
 
-                  <p className="mod-verify-description">
-                    {request.description || "No description provided."}
-                  </p>
 
                   <div className="mod-verify-meta">
                     <span>{request.ngoName || "NGO"}</span>
-                    <span>{request.category || "General"}</span>
-                    <span>{formatRequestDate(request.appliedAt)}</span>
+                    <span>{formatRequestDate(request.time)}</span>
                   </div>
                 </div>
 
@@ -187,7 +172,10 @@ export default function ModIssueReq() {
         <div className="mod-verify-state">
           <FaClipboardList />
           <strong>No issue requests</strong>
-          <span>NGO interest requests will appear here after they click Show Interest.</span>
+          <span>
+            NGO interest requests will appear here after they click Show
+            Interest.
+          </span>
         </div>
       )}
     </div>

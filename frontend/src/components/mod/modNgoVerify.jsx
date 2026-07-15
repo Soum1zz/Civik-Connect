@@ -16,37 +16,13 @@ function getNgoState(ngo) {
   return ngo?.State || ngo?.state || "State unavailable";
 }
 
-export default function ModNgoVerify() {
-  const [ngos, setNgos] = useState([]);
-  const [loading, setLoading] = useState(true);
+export default function ModNgoVerify({ngos}) {
+  const [loading, setLoading] = useState(false);
   const [actionId, setActionId] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    let isMounted = true;
 
-    const loadNgos = async () => {
-      try {
-        const res = await nonverifiedNgo();
-        if (isMounted) setNgos(Array.isArray(res.data) ? res.data : []);
-      } catch (e) {
-        console.log(e);
-        if (isMounted) {
-          setNgos([]);
-          setError("Could not load NGO requests waiting for verification.");
-        }
-      } finally {
-        if (isMounted) setLoading(false);
-      }
-    };
-
-    loadNgos();
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   const filteredNgos = useMemo(() => {
     const query = searchTerm.trim().toLowerCase();
